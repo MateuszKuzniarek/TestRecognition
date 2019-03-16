@@ -12,10 +12,14 @@ public class Main
         System.out.println("Hello, World");
         try
         {
-            for(int i=10; i<22; i++) SgmToXmlConverter.convertToXml("./examples/sgmFiles/reut2-0" + i + ".sgm");
-            //List<TrainingExample> examples = ExampleLoader.loadFromXmlFile("PLACES", "./examples/sgmFiles/reut2-000.xml");
-            //for(TrainingExample example : examples) System.out.println(example);
+            //for(int i=10; i<22; i++) SgmToXmlConverter.convertToXml("./examples/sgmFiles/reut2-0" + i + ".sgm");
+            List<TextSample> examples = ExampleLoader.loadFromXmlFile("PLACES", "./examples/sgmFiles/reut2-000.xml");
+            for(TextSample example : examples) System.out.println(example);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
 
