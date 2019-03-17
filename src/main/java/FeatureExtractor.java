@@ -1,7 +1,10 @@
-import lombok.Data;
+import java.util.List;
 
-@Data
-public class FeatureExtractor
+public abstract class FeatureExtractor
 {
-    // Functions to extract features
+    //used for training
+    public abstract List<TrainingExample> extractFeatures(List<TextSample> samples);
+
+    //used for testing
+    public abstract TrainingExample extractFeatures(TextSample samples);
 }

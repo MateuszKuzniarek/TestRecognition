@@ -17,6 +17,7 @@ public class ExampleLoader
 {
     private static List<String> ignoredWords = Arrays.asList("and", "or", "the", "a", "an", "of", "by", "but", "in", "for", "to", "");
     private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "");
+    private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
 
     private static String removePunctuationMarks(String text)
     {
@@ -31,6 +32,7 @@ public class ExampleLoader
 
     private static List<String> getWords(String text)
     {
+        text = text.toLowerCase();
         text = removePunctuationMarks(text);
         ArrayList<String> result = new ArrayList<String>(Arrays.asList(text.split(" ")));
         result.removeAll(ignoredWords);
@@ -70,5 +72,28 @@ public class ExampleLoader
             examples.add(example);
         }
         return examples;
+    }
+
+    public static List<TextSample> filterPlaces(List<TextSample> samples)
+    {
+        List<TextSample> result = new ArrayList<TextSample>();
+        for(TextSample sample : samples)
+        {
+            if(sample.getLabels().size() == 1 && allowedPlaces.contains(sample.getLabels().get(0)))
+            {
+                result.add(sample);
+            }
+        }
+        return result;
+    }
+
+    public static List<TextSample> loadFromAllFiles(String labelName) throws ParserConfigurationException, SAXException, IOException {
+        List<TextSample> result = new ArrayList<TextSample>();
+        String path = "";
+        for(int i=0; i<22; i++)
+        {
+             result.addAll(loadFromXmlFile(labelName, "./examples/sgmFiles/reut2-0" + String.format("%02d", i) + ".xml"));
+        }
+        return result;
     }
 }

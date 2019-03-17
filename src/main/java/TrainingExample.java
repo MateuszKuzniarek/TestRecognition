@@ -6,6 +6,6 @@ import java.util.List;
 @Data
 public class TrainingExample
 {
-    private List<String> labels = new ArrayList<String>();
+    private String label;
     private List<Double> features;
 }
