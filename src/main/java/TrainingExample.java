@@ -7,5 +7,5 @@ import java.util.List;
 public class TrainingExample
 {
     private String label;
-    private List<Double> features;
+    private List<Double> features = new ArrayList<>();
 }
