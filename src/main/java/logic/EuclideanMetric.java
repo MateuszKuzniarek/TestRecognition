@@ -1,3 +1,5 @@
+package logic;
+
 import java.util.List;
 
 public class EuclideanMetric extends Metric

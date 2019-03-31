@@ -1,3 +1,5 @@
+package logic;
+
 import lombok.Data;
 
 import java.util.Comparator;

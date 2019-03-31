@@ -1,25 +1,36 @@
-import logic.EuclideanMetric;
-import logic.ExampleLoader;
-import logic.KNNClassification;
-import logic.TFIDFExtractor;
-import logic.TextSample;
-import org.xml.sax.SAXException;
+package gui;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.util.List;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
+import static javafx.application.Application.launch;
+
+
+public class MainApp extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        
+        stage.setTitle("JavaFX and Maven");
+        stage.setScene(scene);
+        stage.show();
+
+
         /*
+
         System.out.println("Hello, World");
         int x = 2;
         int y = 3;
         double z = (double)x/y;
         System.out.println(z);
-        */
+
         try
         {
             List<TextSample> examples2 = ExampleLoader.loadFromAllFiles("PLACES");
@@ -51,5 +62,19 @@ public class Main
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
+         */
     }
+
+    /**
+     * The main() method is ignored in correctly deployed JavaFX application.
+     * main() serves only as fallback in case the application can not be
+     * launched through deployment artifacts, e.g., in IDEs with limited FX
+     * support. NetBeans ignores main().
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
