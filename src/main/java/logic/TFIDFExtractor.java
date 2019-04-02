@@ -1,3 +1,4 @@
+/*
 package logic;
 
 import java.util.ArrayList;
@@ -17,13 +18,6 @@ public class TFIDFExtractor extends FeatureExtractor
     {
         this.numberOfFeatures = numberOfFeatures;
         //this.groupLevel = groupLevel;
-    }
-
-    private double calculateTF(TextSample sample, String word)
-    {
-        double frequency = Collections.frequency(sample.getWords(), word);
-        double numberOfWords = sample.getWords().size();
-        return frequency/numberOfWords;
     }
 
     private void calculateValueForAllSamples(List<TextSample> samples, String word)
@@ -86,3 +80,4 @@ public class TFIDFExtractor extends FeatureExtractor
         return result;
     }
 }
+*/

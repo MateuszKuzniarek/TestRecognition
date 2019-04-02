@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.FXMLController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ComboBox layoutX="317.0" layoutY="80.0" prefWidth="150.0" />
+      <Label layoutX="181.0" layoutY="84.0" text="Ekstraktor cech" />
+      <Label layoutX="93.0" layoutY="130.0" text="Metryka/Miara podobnieństwa" />
+      <ComboBox layoutX="317.0" layoutY="126.0" prefWidth="150.0" />
+      <Label layoutX="152.0" layoutY="37.0" text="Kategoria klasyfikacji" />
+      <ComboBox layoutX="317.0" layoutY="33.0" prefWidth="150.0" />
+      <Button layoutX="257.0" layoutY="292.0" mnemonicParsing="false" text="Testuj" />
+      <ComboBox layoutX="317.0" layoutY="169.0" prefWidth="150.0" />
+      <Label layoutX="182.0" layoutY="173.0" text="współczynnik k" />
+   </children>
 </AnchorPane>

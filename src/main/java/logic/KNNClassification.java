@@ -2,6 +2,7 @@ package logic;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Map;
 @Data
 public class KNNClassification
 {
+    private ArrayList<TrainingExample> trainingExamples;
+    private ArrayList<TextSample> trainingTextSamples = new ArrayList<>();
     private FeatureExtractor featureExtractor;
     private Metric metric;
     private int k;
@@ -21,14 +24,17 @@ public class KNNClassification
 
     public void train(List<TextSample> samples)
     {
-        featureExtractor.train(samples);
+        trainingExamples = new ArrayList<>();
+        for(TextSample sample : samples)
+        {
+            trainingExamples.add(featureExtractor.extractFeatures(samples, sample));
+        }
     }
 
     public String classify(TextSample testSample)
     {
         String result = "";
-        List<TrainingExample> trainingExamples = featureExtractor.getTrainingExamples();
-        TrainingExample testExample = featureExtractor.extractFeatures(testSample);
+        TrainingExample testExample = featureExtractor.extractFeatures(trainingTextSamples, testSample);
         trainingExamples.sort(Comparator.comparingDouble(a -> metric.getDistance(a.getFeatures(), testExample.getFeatures())));
         HashMap<String, Integer> answers = new HashMap<String, Integer>();
         for(int i=0; i<k; i++)
