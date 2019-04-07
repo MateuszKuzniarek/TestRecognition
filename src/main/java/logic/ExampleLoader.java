@@ -33,7 +33,7 @@ public class ExampleLoader
             "as", "was", "tax", "bond", "price", "hous", "govern", "money", "trade", "secur", "manag", "industri", "last");
 
     private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "");
-    private static List<String> allowedPlaces = Arrays.asList("west-germany", /*"usa",*/ "france", "uk", "canada", "japan");
+    private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
 
     private static String removePunctuationMarks(String text)
     {
@@ -103,7 +103,20 @@ public class ExampleLoader
         List<TextSample> result = new ArrayList<TextSample>();
         for(TextSample sample : samples)
         {
-            if(sample.getLabels().size() == 1 && allowedPlaces.contains(sample.getLabels().get(0)))
+            if(allowedPlaces.contains(sample.getLabels().get(0)))
+            {
+                result.add(sample);
+            }
+        }
+        return result;
+    }
+
+    public static List<TextSample> filterLabelsOut(List<TextSample> samples)
+    {
+        List<TextSample> result = new ArrayList<TextSample>();
+        for(TextSample sample : samples)
+        {
+            if(sample.getLabels().size() == 1 && !sample.getLabels().get(0).equals(""))
             {
                 result.add(sample);
             }
@@ -118,6 +131,7 @@ public class ExampleLoader
         {
              result.addAll(loadFromXmlFile(labelName, "./examples/sgmFiles/reut2-0" + String.format("%02d", i) + ".xml"));
         }
+        result = filterLabelsOut(result);
         return result;
     }
 }

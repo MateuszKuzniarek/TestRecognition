@@ -23,6 +23,9 @@ public class KNNClassification
     public void init(List<TextSample> samples)
     {
         //TODO do something with that 3
+        trainingTextSamples = new ArrayList<>();
+        keywords = new ArrayList<>();
+        trainingTextSamples = new ArrayList<>();
         trainingTextSamples.addAll(samples);
         findKeywords(samples, 3);
         System.out.println(keywords);

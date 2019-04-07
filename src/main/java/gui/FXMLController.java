@@ -61,10 +61,10 @@ public class FXMLController implements Initializable
     private void findKeywordsButtonAction(ActionEvent event)
             throws IOException, SAXException, ParserConfigurationException
     {
-        List<TextSample> examples2 = ExampleLoader.loadFromAllFiles(categoryComboBox.getValue());
-        examples2 = ExampleLoader.filterPlaces(examples2);
+        List<TextSample> examples = ExampleLoader.loadFromAllFiles(categoryComboBox.getValue());
+        if(categoryComboBox.getValue().equals("PLACES")) examples = ExampleLoader.filterPlaces(examples);
         //System.out.println(examples2.size());
-        List<TextSample> examples = examples2.subList(0, 2000);
+        //List<TextSample> examples = examples2.subList(0, 2000);
         int count = examples.size();
         int trainingCount = (int) (0.6*count);
         trainingSamples = examples.subList(0, trainingCount);
@@ -108,5 +108,6 @@ public class FXMLController implements Initializable
         metricComboBox.getItems().add(new ManhattanMetric());
         metricComboBox.getItems().add(new ChebyshevMetric());
         categoryComboBox.getItems().add("PLACES");
+        categoryComboBox.getItems().add("TOPICS");
     }    
 }
