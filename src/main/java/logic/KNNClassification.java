@@ -1,8 +1,10 @@
 package logic;
 
+import javafx.util.Pair;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -12,27 +14,27 @@ import java.util.Map;
 public class KNNClassification
 {
     private ArrayList<TrainingExample> trainingExamples;
+    private ArrayList<String> keywords = new ArrayList<>();
     private ArrayList<TextSample> trainingTextSamples = new ArrayList<>();
     private FeatureExtractor featureExtractor;
     private Metric metric;
     private int k;
 
-    public KNNClassification(int k)
-    {
-        this.k = k;
-    }
-
-    public void train(List<TextSample> samples)
+    public void init(List<TextSample> samples)
     {
         //TODO do something with that 3
         trainingTextSamples.addAll(samples);
-        featureExtractor.findKeywords(samples, 3);
-        System.out.println(featureExtractor.keywords);
-        featureExtractor.initExtractor();
+        findKeywords(samples, 3);
+        System.out.println(keywords);
+    }
+
+    public void train()
+    {
+        featureExtractor.initExtractor(keywords);
         trainingExamples = new ArrayList<>();
-        for(TextSample sample : samples)
+        for(TextSample sample : trainingTextSamples)
         {
-            trainingExamples.add(featureExtractor.extractFeatures(samples, sample));
+            trainingExamples.add(featureExtractor.extractFeatures(trainingTextSamples, sample));
         }
     }
 
@@ -58,5 +60,55 @@ public class KNNClassification
             }
         }
         return result;
+    }
+
+    private ArrayList<String> getLabels(List<TextSample> samples)
+    {
+        ArrayList<String> labels = new ArrayList<>();
+        for(TextSample sample : samples)
+        {
+            if(!labels.contains(sample.getLabels().get(0))) labels.add(sample.getLabels().get(0));
+        }
+        return labels;
+    }
+
+    private HashMap<String, ArrayList<String>> getWordsForLabel(List<TextSample> samples, List<String> labels)
+    {
+        HashMap<String, ArrayList<String>> wordsForLabel = new HashMap<>();
+        for(String label : labels) wordsForLabel.put(label, new ArrayList<>());
+
+        for(TextSample sample : samples)
+        {
+            wordsForLabel.get(sample.getLabels().get(0)).addAll(sample.getWords());
+        }
+        return wordsForLabel;
+    }
+
+    private boolean checkForWord(String word, ArrayList<Pair<String, Integer>> words)
+    {
+        for(Pair<String, Integer> pair : words)
+        {
+            if(word.equals(pair.getKey())) return true;
+        }
+        return false;
+    }
+
+    public void findKeywords(List<TextSample> samples, int n)
+    {
+        ArrayList<String> labels = getLabels(samples);
+        HashMap<String, ArrayList<String>> wordsForLabel = getWordsForLabel(samples, labels);
+        for(String label : wordsForLabel.keySet())
+        {
+            ArrayList<Pair<String, Integer>> words = new ArrayList<>();
+            for(String word : wordsForLabel.get(label))
+            {
+                if(!checkForWord(word, words))
+                {
+                    words.add(new Pair(word, Collections.frequency(wordsForLabel.get(label), word)));
+                }
+            }
+            Collections.sort(words, Comparator.comparingInt(Pair::getValue));
+            for(int i=0; i<n; i++) keywords.add(words.get(words.size()-1-i).getKey());
+        }
     }
 }
