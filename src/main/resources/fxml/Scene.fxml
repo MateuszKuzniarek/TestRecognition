@@ -5,16 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FXMLController">
    <children>
-      <ComboBox layoutX="317.0" layoutY="80.0" prefWidth="150.0" />
+      <ComboBox fx:id="extractorComboBox" layoutX="317.0" layoutY="80.0" prefWidth="150.0" />
       <Label layoutX="181.0" layoutY="84.0" text="Ekstraktor cech" />
       <Label layoutX="93.0" layoutY="130.0" text="Metryka/Miara podobnieństwa" />
-      <ComboBox layoutX="317.0" layoutY="126.0" prefWidth="150.0" />
+      <ComboBox fx:id="metricComboBox" layoutX="317.0" layoutY="126.0" prefWidth="150.0" />
       <Label layoutX="152.0" layoutY="37.0" text="Kategoria klasyfikacji" />
-      <ComboBox layoutX="317.0" layoutY="33.0" prefWidth="150.0" />
-      <Button layoutX="257.0" layoutY="292.0" mnemonicParsing="false" text="Testuj" />
-      <ComboBox layoutX="317.0" layoutY="169.0" prefWidth="150.0" />
+      <ComboBox fx:id="categoryComboBox" layoutX="317.0" layoutY="33.0" prefWidth="150.0" />
+      <Button layoutX="257.0" layoutY="292.0" mnemonicParsing="false" onAction="#testButtonAction" text="Testuj" />
+      <ComboBox fx:id="kCoefficientComboBox" layoutX="317.0" layoutY="169.0" prefWidth="150.0" />
       <Label layoutX="182.0" layoutY="173.0" text="współczynnik k" />
+      <Label fx:id="resultLabel" layoutX="229.0" layoutY="334.0" prefHeight="18.0" prefWidth="110.0" text="Wynik:" />
    </children>
 </AnchorPane>

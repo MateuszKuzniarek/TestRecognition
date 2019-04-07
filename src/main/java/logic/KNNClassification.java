@@ -24,6 +24,11 @@ public class KNNClassification
 
     public void train(List<TextSample> samples)
     {
+        //TODO do something with that 3
+        trainingTextSamples.addAll(samples);
+        featureExtractor.findKeywords(samples, 3);
+        System.out.println(featureExtractor.keywords);
+        featureExtractor.initExtractor();
         trainingExamples = new ArrayList<>();
         for(TextSample sample : samples)
         {

@@ -19,6 +19,7 @@ public abstract class FeatureExtractor
     public TrainingExample extractFeatures(List<TextSample> allSamples, TextSample sample)
     {
         TrainingExample trainingExample = new TrainingExample();
+        trainingExample.setLabel(sample.getLabels().get(0));
         for(Feature feature : features)
         {
             trainingExample.getFeatures().add(feature.extractFeature(allSamples, sample));
@@ -90,7 +91,7 @@ public abstract class FeatureExtractor
         return false;
     }
 
-    protected void findKeywords(List<TextSample> samples, int n)
+    public void findKeywords(List<TextSample> samples, int n)
     {
         ArrayList<String> labels = getLabels(samples);
         HashMap<String, ArrayList<String>> wordsForLabel = getWordsForLabel(samples, labels);

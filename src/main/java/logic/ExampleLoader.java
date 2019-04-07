@@ -1,5 +1,8 @@
 package logic;
 
+import jdk.nashorn.internal.parser.TokenStream;
+import org.tartarus.snowball.SnowballStemmer;
+import org.tartarus.snowball.ext.englishStemmer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,9 +19,21 @@ import java.util.List;
 
 public class ExampleLoader
 {
-    private static List<String> ignoredWords = Arrays.asList("and", "or", "the", "a", "an", "of", "by", "but", "in", "for", "to", "");
+    private static List<String> ignoredWords = Arrays.asList("i", "me", "my", "myself", "we", "our", "ours", "ourselves",
+            "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers",
+            "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who",
+            "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have",
+            "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because",
+            "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through",
+            "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over",
+            "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all",
+            "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own",
+            "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "", " ", "said",
+            "mln", "pct", "vs", "billion", "bank", "market", "year", "be", "issu", "net", "reuter", "rate", "with",
+            "as", "was", "tax", "bond", "price", "hous", "govern", "money", "trade", "secur", "manag", "industri", "last");
+
     private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "");
-    private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
+    private static List<String> allowedPlaces = Arrays.asList("west-germany", /*"usa",*/ "france", "uk", "canada", "japan");
 
     private static String removePunctuationMarks(String text)
     {
@@ -36,7 +51,15 @@ public class ExampleLoader
         text = text.toLowerCase();
         text = removePunctuationMarks(text);
         ArrayList<String> result = new ArrayList<String>(Arrays.asList(text.split(" ")));
+        SnowballStemmer stemmer = new englishStemmer();
+        for(int i=0; i<result.size(); i++)
+        {
+            stemmer.setCurrent(result.get(i));
+            stemmer.stem();
+            result.set(i, stemmer.getCurrent());
+        }
         result.removeAll(ignoredWords);
+        //System.out.println(result);
         return result;
     }
 
