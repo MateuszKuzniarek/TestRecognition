@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.NumberStringConverter;
+import logic.metrics.AverageMinSimilarity;
+import logic.metrics.MinMaxSimilarity;
 import logic.utils.CSVData;
 import logic.utils.CSVWriter;
 import logic.metrics.ChebyshevMetric;
@@ -89,6 +91,7 @@ public class FXMLController implements Initializable
         System.out.println("Processing...");
         List<TextSample> examples = ExampleLoader.loadDataSet(dataSetComboBox.getValue(), categoryComboBox.getValue());
         if(categoryComboBox.getValue().equals("PLACES")) examples = ExampleLoader.filterPlaces(examples);
+        else if(categoryComboBox.getValue().equals("TOPICS")) examples = ExampleLoader.filterTopics(examples);
         //System.out.println(examples2.size());
         //List<TextSample> examples = examples2.subList(0, 2000);
         int count = examples.size();
@@ -141,6 +144,8 @@ public class FXMLController implements Initializable
         metricComboBox.getItems().add(new EuclideanMetric());
         metricComboBox.getItems().add(new ManhattanMetric());
         metricComboBox.getItems().add(new ChebyshevMetric());
+        metricComboBox.getItems().add(new AverageMinSimilarity());
+        metricComboBox.getItems().add(new MinMaxSimilarity());
         dataSetComboBox.getItems().add("REUTERS");
         dataSetComboBox.getItems().add("QUOTES");
     }    

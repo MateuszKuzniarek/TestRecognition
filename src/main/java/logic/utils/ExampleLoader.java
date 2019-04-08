@@ -131,6 +131,7 @@ public class ExampleLoader
 
     private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "", "-");
     private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
+    private static List<String> allowedTopics = Arrays.asList("earn", "acq", "trade");
 
     private static String removePunctuationMarks(String text)
     {
@@ -201,6 +202,19 @@ public class ExampleLoader
         for(TextSample sample : samples)
         {
             if(allowedPlaces.contains(sample.getLabels().get(0)))
+            {
+                result.add(sample);
+            }
+        }
+        return result;
+    }
+
+    public static List<TextSample> filterTopics(List<TextSample> samples)
+    {
+        List<TextSample> result = new ArrayList<TextSample>();
+        for(TextSample sample : samples)
+        {
+            if(allowedTopics.contains(sample.getLabels().get(0)))
             {
                 result.add(sample);
             }
