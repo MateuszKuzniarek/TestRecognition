@@ -20,6 +20,7 @@ public class AverageNumber extends Feature
                 numberOfNumbers++;
             }
         }
+        if(numberOfNumbers == 0) return 0;
         return sum/numberOfNumbers;
     }
 }

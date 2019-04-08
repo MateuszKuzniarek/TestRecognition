@@ -15,9 +15,10 @@ import java.util.Map;
 @Data
 public class KNNClassification
 {
+    private Normalizer normalizer;
     private ArrayList<TrainingExample> trainingExamples;
-    private ArrayList<String> keywords = new ArrayList<>();
-    private ArrayList<TextSample> trainingTextSamples = new ArrayList<>();
+    private ArrayList<String> keywords;
+    private ArrayList<TextSample> trainingTextSamples;
     private FeatureExtractor featureExtractor;
     private Metric metric;
     private int k;
@@ -34,15 +35,17 @@ public class KNNClassification
 
     public void train(int numberOfKeywordsPerLabel)
     {
+        normalizer = new Normalizer();
         featureExtractor.initExtractor(keywords, numberOfKeywordsPerLabel);
         trainingExamples = new ArrayList<>();
         for(TextSample sample : trainingTextSamples)
         {
             trainingExamples.add(featureExtractor.extractFeatures(trainingTextSamples, sample));
         }
-        for(TrainingExample example : trainingExamples)
+        normalizer.initializeWages(trainingExamples);
+        for(int i=0; i<trainingExamples.size(); i++)
         {
-            example.normalize();
+            normalizer.normalize(trainingExamples.get(i));
         }
     }
 
@@ -50,7 +53,7 @@ public class KNNClassification
     {
         String result = "";
         TrainingExample testExample = featureExtractor.extractFeatures(trainingTextSamples, testSample);
-        testExample.normalize();
+        normalizer.normalize(testExample);
         trainingExamples.sort(Comparator.comparingDouble(a -> metric.getDistance(a.getFeatures(), testExample.getFeatures())));
         HashMap<String, Integer> answers = new HashMap<String, Integer>();
         for(int i=0; i<k; i++)

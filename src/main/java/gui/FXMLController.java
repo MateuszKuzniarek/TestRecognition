@@ -113,7 +113,7 @@ public class FXMLController implements Initializable
         for(TextSample sample : testSamples)
         {
             String answer = knn.classify(sample);
-            System.out.println(answer + " " + sample.getLabels().get(0));
+            //System.out.println(answer + " " + sample.getLabels().get(0));
             if(answer.equals(sample.getLabels().get(0))) correctAnswers++;
         }
         double result =(double)correctAnswers/testSamples.size();

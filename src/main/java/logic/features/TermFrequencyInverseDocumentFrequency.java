@@ -19,6 +19,7 @@ public class TermFrequencyInverseDocumentFrequency extends Feature
     {
         double frequency = Collections.frequency(sample.getWords(), word);
         double numberOfWords = sample.getWords().size();
+        if(numberOfWords == 0) return 0;
         return frequency/numberOfWords;
     }
 
@@ -29,6 +30,7 @@ public class TermFrequencyInverseDocumentFrequency extends Feature
         {
             if(sample.getWords().contains(word)) counter++;
         }
+        if(counter == 0) return 0;
         return Math.log(allSamples.size()/counter);
     }
 

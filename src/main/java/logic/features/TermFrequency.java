@@ -2,10 +2,12 @@ package logic.features;
 
 import logic.classification.TextSample;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Collections;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class TermFrequency extends Feature
 {
@@ -20,6 +22,7 @@ public class TermFrequency extends Feature
     {
         double frequency = Collections.frequency(sample.getWords(), word);
         double numberOfWords = sample.getWords().size();
+        if(numberOfWords == 0) return 0;
         return frequency/numberOfWords;
     }
 

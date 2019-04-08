@@ -20,4 +20,9 @@ public class CustomExtractor extends FeatureExtractor
             features.add(new CombinedTermFrequency(keywords.subList(i, i+numberOfKeywordsPerLabel)));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Własny Ekstraktor";
+    }
 }
