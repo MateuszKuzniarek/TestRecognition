@@ -15,4 +15,9 @@ public class EuclideanMetric extends Metric
         }
         return Math.sqrt(sum);
     }
+
+    @Override
+    public String toString() {
+        return "Metryka Euklidesowa";
+    }
 }

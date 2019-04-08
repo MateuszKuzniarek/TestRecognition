@@ -13,4 +13,9 @@ public class TFExtractor extends FeatureExtractor
             features.add(new TermFrequency(keyword));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Ekstraktor TF";
+    }
 }

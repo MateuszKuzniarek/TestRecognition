@@ -12,4 +12,9 @@ public class TFIDFExtractor extends FeatureExtractor
             features.add(new TermFrequencyInverseDocumentFrequency(keyword));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Ekstraktor TFIDF";
+    }
 }

@@ -15,4 +15,9 @@ public class ChebyshevMetric extends Metric
         }
         return maxDifference;
     }
+
+    @Override
+    public String toString() {
+        return "Metryka Czebyszewa";
+    }
 }

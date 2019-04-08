@@ -15,4 +15,9 @@ public class ManhattanMetric extends Metric
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Metryka taksówkarska";
+    }
 }

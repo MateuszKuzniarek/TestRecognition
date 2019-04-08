@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.NumberStringConverter;
+import logic.CSVData;
+import logic.CSVWriter;
 import logic.ChebyshevMetric;
 import logic.EuclideanMetric;
 import logic.ExampleLoader;
@@ -93,6 +95,7 @@ public class FXMLController implements Initializable
         double elapsedTime = (endTime - startTime)/1000000000f;
         DecimalFormat format = new DecimalFormat("#.###");
         format.setRoundingMode(RoundingMode.HALF_UP);
+        CSVWriter.appendDataToFile(new CSVData(result, elapsedTime), "result.csv");
         System.out.println(result);
         resultLabel.setText(format.format(result * 100) + "%");
         timeLabel.setText(format.format(elapsedTime) + "s");
