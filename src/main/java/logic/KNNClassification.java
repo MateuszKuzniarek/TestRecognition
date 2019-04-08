@@ -20,14 +20,13 @@ public class KNNClassification
     private Metric metric;
     private int k;
 
-    public void init(List<TextSample> samples)
+    public void init(List<TextSample> samples, int numberOfKeywords)
     {
-        //TODO do something with that 3
         trainingTextSamples = new ArrayList<>();
         keywords = new ArrayList<>();
         trainingTextSamples = new ArrayList<>();
         trainingTextSamples.addAll(samples);
-        findKeywords(samples, 3);
+        findKeywords(samples, numberOfKeywords);
         System.out.println(keywords);
     }
 
