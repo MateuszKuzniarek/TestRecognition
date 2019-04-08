@@ -30,9 +30,9 @@ public class KNNClassification
         System.out.println(keywords);
     }
 
-    public void train()
+    public void train(int numberOfKeywordsPerLabel)
     {
-        featureExtractor.initExtractor(keywords);
+        featureExtractor.initExtractor(keywords, numberOfKeywordsPerLabel);
         trainingExamples = new ArrayList<>();
         for(TextSample sample : trainingTextSamples)
         {

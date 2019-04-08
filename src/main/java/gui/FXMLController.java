@@ -12,6 +12,7 @@ import javafx.util.converter.NumberStringConverter;
 import logic.CSVData;
 import logic.CSVWriter;
 import logic.ChebyshevMetric;
+import logic.CustomExtractor;
 import logic.EuclideanMetric;
 import logic.ExampleLoader;
 import logic.FeatureExtractor;
@@ -107,7 +108,7 @@ public class FXMLController implements Initializable
         knn.setK(Integer.parseInt(kCoefficientTextField.getText()));
         knn.setFeatureExtractor(extractorComboBox.getValue());
         knn.setMetric(metricComboBox.getValue());
-        knn.train();
+        knn.train(Integer.parseInt(numberOfKeywordsTextField.getText()));
         int correctAnswers = 0;
         for(TextSample sample : testSamples)
         {
@@ -136,6 +137,7 @@ public class FXMLController implements Initializable
         numberOfKeywordsTextField.setText("3");
         extractorComboBox.getItems().add(new TFExtractor());
         extractorComboBox.getItems().add(new TFIDFExtractor());
+        extractorComboBox.getItems().add(new CustomExtractor());
         metricComboBox.getItems().add(new EuclideanMetric());
         metricComboBox.getItems().add(new ManhattanMetric());
         metricComboBox.getItems().add(new ChebyshevMetric());

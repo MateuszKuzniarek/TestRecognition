@@ -26,7 +26,7 @@ public abstract class FeatureExtractor
         return trainingExample;
     }
 
-    public abstract void initExtractor(List<String> keywords);
+    public abstract void initExtractor(List<String> keywords, int numberOfKeywordsPerLabel);
 
     /*
     public List<TrainingExample> getTrainingExamples() {

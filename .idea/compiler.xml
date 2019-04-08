@@ -9,5 +9,8 @@
         <module name="TextRecognition" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TextRecognition" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

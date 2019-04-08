@@ -27,12 +27,12 @@ public class TermFrequencyInverseDocumentFrequency extends Feature
         {
             if(sample.getWords().contains(word)) counter++;
         }
-        return (counter/allSamples.size());
+        return Math.log(allSamples.size()/counter);
     }
 
     @Override
     public double extractFeature(List<TextSample> allSamples, TextSample sample)
     {
-        return calculateTF(sample, keyword) * calculateIDF(allSamples, keyword);
+        return (calculateTF(sample, keyword) * calculateIDF(allSamples, keyword));
     }
 }

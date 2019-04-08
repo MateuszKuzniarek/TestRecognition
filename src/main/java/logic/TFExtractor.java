@@ -6,7 +6,7 @@ import java.util.List;
 public class TFExtractor extends FeatureExtractor
 {
     @Override
-    public void initExtractor(List<String> keywords)
+    public void initExtractor(List<String> keywords, int numberOfKeywordsPerLabel)
     {
         for(String keyword: keywords)
         {
