@@ -85,6 +85,7 @@ public class FXMLController implements Initializable
     private void findKeywordsButtonAction(ActionEvent event)
             throws IOException, SAXException, ParserConfigurationException
     {
+        System.out.println("Processing...");
         List<TextSample> examples = ExampleLoader.loadDataSet(dataSetComboBox.getValue(), categoryComboBox.getValue());
         if(categoryComboBox.getValue().equals("PLACES")) examples = ExampleLoader.filterPlaces(examples);
         //System.out.println(examples2.size());
@@ -95,11 +96,13 @@ public class FXMLController implements Initializable
         testSamples = examples.subList(trainingCount, count);
         knn.init(trainingSamples, Integer.parseInt(numberOfKeywordsTextField.getText()));
         testButton.setDisable(false);
+        System.out.println("Done!");
     }
 
     @FXML
     private void testButtonAction(ActionEvent event)
     {
+        System.out.println("Processing...");
         long startTime = System.nanoTime();
         knn.setK(Integer.parseInt(kCoefficientTextField.getText()));
         knn.setFeatureExtractor(extractorComboBox.getValue());
@@ -121,6 +124,7 @@ public class FXMLController implements Initializable
         System.out.println(result);
         resultLabel.setText(format.format(result * 100) + "%");
         timeLabel.setText(format.format(elapsedTime) + "s");
+        System.out.println("Done!");
     }
     
     @Override

@@ -38,12 +38,17 @@ public class KNNClassification
         {
             trainingExamples.add(featureExtractor.extractFeatures(trainingTextSamples, sample));
         }
+        for(TrainingExample example : trainingExamples)
+        {
+            example.normalize();
+        }
     }
 
     public String classify(TextSample testSample)
     {
         String result = "";
         TrainingExample testExample = featureExtractor.extractFeatures(trainingTextSamples, testSample);
+        testExample.normalize();
         trainingExamples.sort(Comparator.comparingDouble(a -> metric.getDistance(a.getFeatures(), testExample.getFeatures())));
         HashMap<String, Integer> answers = new HashMap<String, Integer>();
         for(int i=0; i<k; i++)
