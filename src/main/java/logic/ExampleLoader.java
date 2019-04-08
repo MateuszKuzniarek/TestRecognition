@@ -1,6 +1,5 @@
 package logic;
 
-import jdk.nashorn.internal.parser.TokenStream;
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
 import org.w3c.dom.Document;
@@ -32,7 +31,7 @@ public class ExampleLoader
             "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "", " ", "said",
             "mln", "pct", "vs", "billion", "bank", "market", "year", "be", "issu", "net", "reuter", "rate", "with",
             "as", "was", "tax", "bond", "price", "hous", "govern", "money", "trade", "secur", "manag", "industri", "last",
-            "man", "one", "even", "littl", "shall", "onli", "thing", "know", "look", "truth");
+            "man", "one", "even", "littl", "shall", "onli", "thing", "know", "look", "truth", "make", "like");
 
     private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "");
     private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");

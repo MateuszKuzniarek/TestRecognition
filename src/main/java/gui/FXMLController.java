@@ -54,6 +54,9 @@ public class FXMLController implements Initializable
     private TextField kCoefficientTextField;
 
     @FXML
+    private TextField numberOfKeywordsTextField;
+
+    @FXML
     private Button testButton;
 
     private KNNClassification knn = new KNNClassification();
@@ -88,7 +91,7 @@ public class FXMLController implements Initializable
         int trainingCount = (int) (0.6*count);
         trainingSamples = examples.subList(0, trainingCount);
         testSamples = examples.subList(trainingCount, count);
-        knn.init(trainingSamples);
+        knn.init(trainingSamples, Integer.parseInt(numberOfKeywordsTextField.getText()));
         testButton.setDisable(false);
     }
 
@@ -121,6 +124,9 @@ public class FXMLController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         kCoefficientTextField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        kCoefficientTextField.setText("3");
+        numberOfKeywordsTextField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        numberOfKeywordsTextField.setText("3");
         extractorComboBox.getItems().add(new TFExtractor());
         extractorComboBox.getItems().add(new TFIDFExtractor());
         metricComboBox.getItems().add(new EuclideanMetric());
