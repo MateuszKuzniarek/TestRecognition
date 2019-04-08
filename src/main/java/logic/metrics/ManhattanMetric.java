@@ -1,4 +1,4 @@
-package logic;
+package logic.metrics;
 
 import java.util.List;
 

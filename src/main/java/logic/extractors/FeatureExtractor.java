@@ -1,14 +1,11 @@
-package logic;
+package logic.extractors;
 
-import javafx.util.Pair;
+import logic.classification.TextSample;
+import logic.classification.TrainingExample;
+import logic.features.Feature;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class FeatureExtractor
 {

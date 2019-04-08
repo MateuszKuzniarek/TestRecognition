@@ -1,4 +1,6 @@
-package logic;
+package logic.features;
+
+import logic.classification.TextSample;
 
 import java.util.Collections;
 import java.util.Comparator;

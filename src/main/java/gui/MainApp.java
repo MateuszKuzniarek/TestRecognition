@@ -5,9 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import logic.SgmToXmlConverter;
-
-import java.util.ArrayList;
 
 import static javafx.application.Application.launch;
 

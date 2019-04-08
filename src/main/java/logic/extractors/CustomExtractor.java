@@ -1,4 +1,9 @@
-package logic;
+package logic.extractors;
+
+import logic.features.Length;
+import logic.features.AverageNumber;
+import logic.features.CombinedTermFrequency;
+import logic.features.LongestWordsAverageLength;
 
 import java.util.List;
 

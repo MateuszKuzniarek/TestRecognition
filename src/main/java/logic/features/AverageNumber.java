@@ -1,5 +1,6 @@
-package logic;
+package logic.features;
 
+import logic.classification.TextSample;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;

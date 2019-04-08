@@ -1,4 +1,4 @@
-package logic;
+package logic.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

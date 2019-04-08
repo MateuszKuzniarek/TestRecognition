@@ -1,4 +1,4 @@
-package logic;
+package logic.utils;
 
 import org.apache.commons.io.FileUtils;
 

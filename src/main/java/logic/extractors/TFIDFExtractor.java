@@ -1,4 +1,6 @@
-package logic;
+package logic.extractors;
+
+import logic.features.TermFrequencyInverseDocumentFrequency;
 
 import java.util.List;
 

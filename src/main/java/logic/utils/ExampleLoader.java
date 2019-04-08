@@ -1,5 +1,6 @@
-package logic;
+package logic.utils;
 
+import logic.classification.TextSample;
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
 import org.w3c.dom.Document;

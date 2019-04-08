@@ -1,5 +1,7 @@
-package logic;
+package logic.extractors;
 
+
+import logic.features.TermFrequency;
 
 import java.util.List;
 

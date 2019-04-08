@@ -1,5 +1,6 @@
-package logic;
+package logic.features;
 
+import logic.classification.TextSample;
 import lombok.Data;
 
 import java.util.Collections;
