@@ -1,4 +1,4 @@
-package logic;
+package logic.classification;
 
 import javafx.print.Collation;
 import lombok.Data;

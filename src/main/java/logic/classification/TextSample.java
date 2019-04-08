@@ -1,4 +1,4 @@
-package logic;
+package logic.classification;
 
 import lombok.Data;
 

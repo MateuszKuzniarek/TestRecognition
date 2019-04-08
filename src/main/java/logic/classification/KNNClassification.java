@@ -1,6 +1,8 @@
-package logic;
+package logic.classification;
 
 import javafx.util.Pair;
+import logic.extractors.FeatureExtractor;
+import logic.metrics.Metric;
 import lombok.Data;
 
 import java.util.ArrayList;
