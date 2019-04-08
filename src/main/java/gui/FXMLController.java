@@ -48,6 +48,9 @@ public class FXMLController implements Initializable
     private ComboBox<String> categoryComboBox;
 
     @FXML
+    private ComboBox<String> dataSetComboBox;
+
+    @FXML
     private TextField kCoefficientTextField;
 
     @FXML
@@ -58,10 +61,26 @@ public class FXMLController implements Initializable
     private List<TextSample> testSamples;
 
     @FXML
+    private void changeDataSet(ActionEvent event)
+    {
+        if(dataSetComboBox.getValue().equals("REUTERS"))
+        {
+            categoryComboBox.getItems().clear();
+            categoryComboBox.getItems().add("PLACES");
+            categoryComboBox.getItems().add("TOPICS");
+        }
+        else if(dataSetComboBox.getValue().equals("QUOTES"))
+        {
+            categoryComboBox.getItems().clear();
+            categoryComboBox.getItems().add("AUTHOR");
+        }
+    }
+
+    @FXML
     private void findKeywordsButtonAction(ActionEvent event)
             throws IOException, SAXException, ParserConfigurationException
     {
-        List<TextSample> examples = ExampleLoader.loadFromAllFiles(categoryComboBox.getValue());
+        List<TextSample> examples = ExampleLoader.loadDataSet(dataSetComboBox.getValue(), categoryComboBox.getValue());
         if(categoryComboBox.getValue().equals("PLACES")) examples = ExampleLoader.filterPlaces(examples);
         //System.out.println(examples2.size());
         //List<TextSample> examples = examples2.subList(0, 2000);
@@ -107,7 +126,7 @@ public class FXMLController implements Initializable
         metricComboBox.getItems().add(new EuclideanMetric());
         metricComboBox.getItems().add(new ManhattanMetric());
         metricComboBox.getItems().add(new ChebyshevMetric());
-        categoryComboBox.getItems().add("PLACES");
-        categoryComboBox.getItems().add("TOPICS");
+        dataSetComboBox.getItems().add("REUTERS");
+        dataSetComboBox.getItems().add("QUOTES");
     }    
 }

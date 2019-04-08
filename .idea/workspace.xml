@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d01b6b6b-33ac-4775-a358-71c1d4090d3a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/examples/quotes/quotes.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/FXMLController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/FXMLController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MainApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/logic/KNNClassification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/KNNClassification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,34 +57,34 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="3" />
-          <entry key="fxml" value="5" />
-          <entry key="java" value="52" />
-          <entry key="sgm" value="1" />
-          <entry key="xml" value="6" />
+          <entry key="fxml" value="6" />
+          <entry key="java" value="55" />
+          <entry key="sgm" value="2" />
+          <entry key="xml" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="JAVA" value="52" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="XML" value="11" />
+          <entry key="JAVA" value="55" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="XML" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="45" />
-          <entry key="fxml" value="219" />
-          <entry key="java" value="13181" />
-          <entry key="txt" value="354" />
-          <entry key="xml" value="18" />
+          <entry key="fxml" value="254" />
+          <entry key="java" value="14195" />
+          <entry key="txt" value="394" />
+          <entry key="xml" value="132" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="13181" />
-          <entry key="PLAIN_TEXT" value="399" />
-          <entry key="XML" value="237" />
+          <entry key="JAVA" value="14195" />
+          <entry key="PLAIN_TEXT" value="439" />
+          <entry key="XML" value="386" />
         </counts>
       </usages-collector>
     </session>
@@ -90,20 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/gui/FXMLController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/logic/TrainingExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="239">
+              <caret line="82" column="61" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -114,70 +106,52 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="64" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
+            <state relative-caret-position="260">
+              <caret line="27" column="64" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
             </state>
           </provider>
           <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-002.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/MainApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4335" />
+            <state relative-caret-position="102">
+              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+              <folding>
+                <element signature="e#1361#1362#0" expanded="true" />
+                <element signature="e#1389#1390#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/javafx-src.zip!/javafx/scene/Scene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="157" selection-start-line="157" selection-end-line="157" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="35" column="78" lean-forward="true" selection-start-line="35" selection-start-column="78" selection-end-line="35" selection-end-column="78" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/logic/KNNClassification.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="306">
+              <caret line="34" column="91" selection-start-line="34" selection-start-column="91" selection-end-line="34" selection-end-column="91" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3337#3349#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/logic/FeatureExtractor.java">
+        <entry file="file://$PROJECT_DIR$/examples/quotes/quotes.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="65">
-              <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/logic/TermFrequencyInverseDocumentFrequency.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="35" column="80" selection-start-line="35" selection-start-column="80" selection-end-line="35" selection-end-column="80" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/logic/TFExtractor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="51" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="51" />
+            <state relative-caret-position="181">
+              <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -185,8 +159,34 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="442">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-021.sgm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-283638" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-021.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-249746" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/logic/KNNClassification.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -203,7 +203,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Firstcorp</find>
+      <find>&lt;examples</find>
+      <find>QUOTES</find>
     </findStrings>
+    <replaceStrings>
+      <replace>QUOTE</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -226,7 +231,6 @@
         <option value="$PROJECT_DIR$/src/main/java/logic/Feature.java" />
         <option value="$PROJECT_DIR$/src/main/java/logic/TextSample.java" />
         <option value="$PROJECT_DIR$/src/main/java/logic/TermFrequency.java" />
-        <option value="$PROJECT_DIR$/src/main/java/gui/MainApp.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/logic/InverseDocumentFrequency.java" />
         <option value="$PROJECT_DIR$/src/main/java/logic/TermFrequencyInverseDocumentFrequency.java" />
@@ -235,10 +239,13 @@
         <option value="$PROJECT_DIR$/src/main/java/logic/TFExtractor.java" />
         <option value="$PROJECT_DIR$/src/main/java/logic/TFIDFExtractor.java" />
         <option value="$PROJECT_DIR$/src/main/java/logic/FeatureExtractor.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/MainApp.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/FXMLController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/logic/KNNClassification.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml" />
+        <option value="$PROJECT_DIR$/examples/quotes/quotes.xml" />
         <option value="$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/logic/KNNClassification.java" />
       </list>
     </option>
   </component>
@@ -297,6 +304,12 @@
               <item name="TextRecognition" type="b2602c69:ProjectViewProjectNode" />
               <item name="TextRecognition" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="quotes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TextRecognition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TextRecognition" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
               <item name="sgmFiles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -348,14 +361,6 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="fxml" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="TextRecognition" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TextRecognition" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="styles" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -366,7 +371,7 @@
     <property name="SearchEverywhereHistoryKey" value="M&#9;FILE&#9;file://D:/studia/ksr/TextRecognition/src/main/java/logic/EuclideanMetric.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554677533295" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554685790267" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -377,6 +382,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\studia\ksr\TextRecognition\examples\quotes" />
       <recent name="D:\studia\ksr\TextRecognition\src\main\java" />
       <recent name="D:\studia\ksr\TextRecognition\src\main" />
     </key>
@@ -438,7 +444,7 @@
       <workItem from="1554194195805" duration="9936000" />
       <workItem from="1554208497430" duration="62000" />
       <workItem from="1554213597493" duration="3672000" />
-      <workItem from="1554664114664" duration="9981000" />
+      <workItem from="1554664114664" duration="18199000" />
     </task>
     <task id="LOCAL-00001" summary="changes in project files">
       <created>1552347722384</created>
@@ -503,11 +509,18 @@
       <option name="project" value="LOCAL" />
       <updated>1554672483154</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Enabling new label type">
+      <created>1554677591903</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1554677591903</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83671000" />
+    <option name="totallyTimeSpent" value="91889000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -568,16 +581,35 @@
     <MESSAGE value="Changes to program structure" />
     <MESSAGE value="Added new metric and feature extractor" />
     <MESSAGE value="Chebyshev metric and changes in view" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chebyshev metric and changes in view" />
+    <MESSAGE value="Enabling new label type" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enabling new label type" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/gui/FXMLController.java</url>
-          <line>78</line>
+          <line>97</line>
           <properties />
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java</url>
+          <line>21</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java</url>
+          <line>152</line>
+          <properties />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java</url>
+          <line>158</line>
+          <properties />
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -639,13 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/MainApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/logic/TermFrequency.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -679,21 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-000.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457635">
-          <caret line="28181" lean-forward="true" selection-start-line="28181" selection-end-line="28181" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="64" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/logic/FeatureExtractor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="65">
@@ -721,49 +731,109 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-002.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4335" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="35" column="78" lean-forward="true" selection-start-line="35" selection-start-column="78" selection-end-line="35" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/FXMLController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/logic/KNNClassification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/logic/TermFrequencyInverseDocumentFrequency.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="35" column="80" selection-start-line="35" selection-start-column="80" selection-end-line="35" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-000.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2257">
+          <caret line="28181" selection-start-line="28181" selection-end-line="28181" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-021.sgm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-283638" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sgmFiles/reut2-021.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-249746" />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/javafx-src.zip!/javafx/scene/Scene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="157" selection-start-line="157" selection-end-line="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/reuters/reuters.xml">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="-541705">
+          <caret line="1" column="9" selection-start-line="1" selection-end-line="1" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/MainApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding>
+            <element signature="e#1361#1362#0" expanded="true" />
+            <element signature="e#1389#1390#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="27" column="64" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/FXMLController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="82" column="61" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/quotes/quotes.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/logic/ExampleLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="34" column="91" selection-start-line="34" selection-start-column="91" selection-end-line="34" selection-end-column="91" />
+          <folding>
+            <element signature="e#3337#3349#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/logic/SgmToXmlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/logic/KNNClassification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -24,5 +24,7 @@
       <Label layoutX="215.0" layoutY="359.0" prefHeight="18.0" prefWidth="66.0" text="Czas:" />
       <Label fx:id="resultLabel" layoutX="291.0" layoutY="332.0" />
       <Label fx:id="timeLabel" layoutX="291.0" layoutY="359.0" />
+      <Label layoutX="21.0" layoutY="25.0" text="Zbiór danych" />
+      <ComboBox fx:id="dataSetComboBox" onAction="#changeDataSet" layoutX="198.0" layoutY="21.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

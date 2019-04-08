@@ -15,6 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ExampleLoader
@@ -30,7 +31,8 @@ public class ExampleLoader
             "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own",
             "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "", " ", "said",
             "mln", "pct", "vs", "billion", "bank", "market", "year", "be", "issu", "net", "reuter", "rate", "with",
-            "as", "was", "tax", "bond", "price", "hous", "govern", "money", "trade", "secur", "manag", "industri", "last");
+            "as", "was", "tax", "bond", "price", "hous", "govern", "money", "trade", "secur", "manag", "industri", "last",
+            "man", "one", "even", "littl", "shall", "onli", "thing", "know", "look", "truth");
 
     private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "");
     private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
@@ -63,14 +65,14 @@ public class ExampleLoader
         return result;
     }
 
-    public static List<TextSample> loadFromXmlFile(String labelName, String filePath) throws IOException, SAXException, ParserConfigurationException
+    public static List<TextSample> loadFromXmlFile(String labelName, String filePath, String mainElement) throws IOException, SAXException, ParserConfigurationException
     {
         ArrayList<TextSample> examples = new ArrayList<TextSample>();
         File file = new File(filePath);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document document = documentBuilder.parse(file);
-        NodeList reuters = document.getElementsByTagName("REUTERS");
+        NodeList reuters = document.getElementsByTagName(mainElement);
         for(int i=0; i<reuters.getLength(); i++)
         {
             Element element = (Element) reuters.item(i);
@@ -124,14 +126,38 @@ public class ExampleLoader
         return result;
     }
 
-    public static List<TextSample> loadFromAllFiles(String labelName) throws ParserConfigurationException, SAXException, IOException {
+    private static List<TextSample> loadReutersFromAllFiles(String labelName) throws ParserConfigurationException, SAXException, IOException
+    {
         List<TextSample> result = new ArrayList<TextSample>();
         String path = "";
         for(int i=0; i<22; i++)
         {
-             result.addAll(loadFromXmlFile(labelName, "./examples/sgmFiles/reut2-0" + String.format("%02d", i) + ".xml"));
+             result.addAll(loadFromXmlFile(labelName, "./examples/sgmFiles/reut2-0" + String.format("%02d", i) + ".xml", "REUTERS"));
         }
         result = filterLabelsOut(result);
         return result;
+    }
+
+    private static List<TextSample> loadQuotes(String labelName) throws ParserConfigurationException, SAXException, IOException
+    {
+        List<TextSample> result = loadFromXmlFile(labelName, "./examples/quotes/quotes.xml", "QUOTE");
+        Collections.shuffle(result);
+        return result;
+    }
+
+    //This ugly function is ugly because combining all xml files into one doesnt work (its too long probably) so reuters
+    //needs special treatment
+    public static List<TextSample> loadDataSet(String discriminator, String labelName)
+            throws IOException, SAXException, ParserConfigurationException
+    {
+        if("REUTERS".equals(discriminator))
+        {
+            return loadReutersFromAllFiles(labelName);
+        }
+        else if("QUOTES".equals(discriminator))
+        {
+            return loadQuotes(labelName);
+        }
+        else return new ArrayList<>();
     }
 }
