@@ -93,7 +93,6 @@ r_{mm}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\sum_{i=1}^{n}max(p_{i},q_{i
 r_{am}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\frac{1}{2}\sum_{i=1}^{n}(p_{i}+q_{i})}
 \end{equation}
 Własna propozycja miary podobieństwa
-
 \begin{equation}
 r_{wm}(p,q) = (r_{mm}(p,q))^{2}
 \end{equation}
@@ -124,29 +123,43 @@ Opis poszczególnych klas w ramach pakietu:
 	\item logic.extraction
 	\begin{itemize}
 		\item FeatureExtractor.java - klasa abstrakcyjna ekstraktora cech;
-		\item TFExtractor.java - klasa ekstraktora cechy term frequency generująca cechy w oparciu o częstotliwość występowania słów kluczowych;
-		\item TFIDFExtractor.java - klasa ekstraktora cech term frequency inverse document frequency, która ekstrahuje cechy w oparciu o częstotliwość wystąpienia słów kluczowych oraz ich unikalności w stosunku do badanego obiektu;
-		\item CustomExtractor.java - klasa autorskiego ekstraktora cech, który działa w oparciu o długość słów???????????, średnią długość najdłuższych słów, oraz średnią arytmetyczną wszystkich liczb o ile wystąpiły w tekście;
+		\item TFExtractor.java - klasa ekstraktora cechy TF;
+		\item TFIDFExtractor.java - klasa ekstraktora cech TF-IDF;
+		\item CustomExtractor.java - klasa autorskiego ekstraktora cech;
 	\end{itemize}
 	\item logic.features
 	\begin{itemize}
-		\item todo
+		\item Feature.java - klasa abstrakcyjna cechy;
+		\item TermFrequency.java - klasa cechy TF;
+		\item TermFrequencyInverseDocumentFrequency.java - klasa cechy TF-IDF; 
+		\item CombinedTermFrequency.java - klasa cechy będącej sumą cech TF dla każdego słowa kluczowego;
+		\item NGram.java - klasa cechy Ngramów;
+		\item CombinedNGram.java - klasa cechy będącej sumą cech NGramów dla każdego słowa kluczowego;
+		\item Length.java - klasa cechy długości tekstu;
+		\item AverageNumber.java - klasa cechy średniej z liczb występujących w tekście;
+		\item LongestWordsAverageLength.java - klasa cechy średniej długości najdłuższych słów występujących w tekście;
 	\end{itemize}
 	\item logic.metrics
 	\begin{itemize}
-		\item todo
+		\item Metric.java - klasa abstrakcyjna metryki;
+		\item EuclideanMetric.java - klasa reprezentacja metrykę Euklidesowską;
+		\item ManhattanMetric.java - klasa reprezentacja metrykę Manhattańską (taksówkarską);
+		\item ChebyshevMetric.java - klasa reprezentacja metrykę Czebyszewa;
+		\item Similarity.java - klasa abstrakcyjna miary podobieństwa;
+		\item MinMaxSimilarity.java - klasa reprezentacja miarę podobieństwa Minimum-Maximum;
+		\item AverageMinSimilarity.java - klasa reprezentacja miarę podobieństwa Średniej Arytmetycznej-Minimum;
+		\item CustomSimilarity.java - klasa reprezentująca własną miarę podobieństwa;
 	\end{itemize}
 	\item logic.utils
 	\begin{itemize}
-		\item todo
+		\item SgmToXmlConverter.java - klasa konwertera zamieniająca plik sqm, w którym zostały dostarczone dane na plik, xml z którego są potem wczytywane do programu;
+		\item ExampleLoader.java - klasa wczytująca teksty z pliku xml i przeprowadzająca wstępną obróbkę tekstu oraz stemizację, celem usprawnienia późniejszego procesu klasyfikacji;
+		\item CSVData.java - klasa reprezentująca dane statystyczne zapisywane później do pliku csv;
+		\item CSVWriter.java - klasa zapisująca dane powstałe w wyniku klasyfikacji do pliku csv;
 	\end{itemize}
 \end{itemize}
 
-{\color{blue}
-Należy tu zamieścić krótki i zwięzły opis zaprojektowanych klas oraz powiązań
-między nimi. Powinien się tu również znaleźć diagram UML  (diagram klas)
-prezentujący najistotniejsze elementy stworzonej aplikacji. Należy także
-podać, w jakim języku programowania została stworzona aplikacja. }
+{\color{blue} UML!!!!!!!!!!!!!!!!!!}
 
 \section{Materiały i metody}
 Przed rozpoczęciem klasyfikacji analizowane teksty zostały odpowiednio przygotowane do wykorzystania. Treść została podzielona na pojedyncze słowa, które następnie zostały poddane procesowi stemmingu, który to polega na pozbyciu się końcówek fleksyjnych wyrazu. Z tekstu usunięto wszystkie znaki interpunkcyjne, a wielkie litery zamieniono na małe. Następnie, przy pomocy odpowiednio przygotowanej stop-listy, pozbyto się niepożądanych słów, które nie niosły ze sobą większego znaczenia dla procesu klasyfikacji.
