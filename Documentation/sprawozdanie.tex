@@ -29,7 +29,6 @@ Celem zadania było zaprojektowanie i implementacja narzędzia, pozwalającego n
 \subsection{Ekstrakcja cech}
 W celu szybkiego i efektywnego porównywania tekstów przydatna okazuje się ich reprezentacja w postaci wektora liczb. Współrzędne takiego wektora odpowiadają poszczególnym cechom, opisującym reprezentowany tekst. Proces analizy tekstu i określenia wartości liczbowej dla danej jego własności nazywamy ekstrakcją cech. Wybór odpowiedniego sposobu ekstrakcji jest kluczowy dla efektywnego działania programu. W ramach zadania zaimplementowano 3 takie sposoby.
 
-
 \subsubsection{TF (Term Frequency)}
 Dla każdego słowa kluczowego obliczana jest jego częstotliwość przy pomocy wzoru: 
 \begin{equation}
@@ -52,7 +51,7 @@ gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to l
 Trzecim wykorzystanym sposobem była własna metoda ekstrakcji wektora cech. Składała się ona z następujących własności:
 \begin{itemize}
 	\item Suma wartości TF dla grupy słów kluczowych
-	\item Suma wartości podobieństwa słowa kluczowego do analizowanego tekstu przy użyciu miary trigramów.
+	\item Suma wartości podobieństwa słowa kluczowego do analizowanego tekstu przy użyciu miary trigramów. \cite{ANiewSkrypt}
 	\item Długość tekstu
 	\item Średnia z występujących w tekście liczb
 	\item Średnia długość słowa wśród 4 najdłuższych słów
@@ -71,11 +70,11 @@ Do klasyfikacji tekstów wykorzystany został algorytm KNN(k-nearest neighbors).
 W ramach zadania zaimplementowano następujące metryki: \newline
 Metryka euklidesowa:
 \begin{equation}
-d(p,q) = \sqrt{\sum_{i=1}^{n} (p_{i} -q_{i})^{2}}
+d(p,q) = \sqrt{\sum_{i=1}^{n} (p_{i} -q_{i})^{2}} \cite{ANiewSkrypt}
 \end{equation}
 Metryka uliczna:
 \begin{equation}
-d(p,q) = \sum_{i=1}^{n} |p_{i} -q_{i}|
+d(p,q) = \sum_{i=1}^{n} |p_{i} -q_{i}| \cite{ANiewSkrypt}
 \end{equation}
 Metryka Czebyszewa:
 \begin{equation}
@@ -86,11 +85,11 @@ gdzie \(n\) jest długością wektorów \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz 
 Oprócz tego zaimplementowano następujące miary podobieństwa: \newline
 Minimum-maximum
 \begin{equation}
-r_{mm}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\sum_{i=1}^{n}max(p_{i},q_{i})}
+r_{mm}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\sum_{i=1}^{n}max(p_{i},q_{i})} \cite{ANiewSkrypt}
 \end{equation}
 Średnia arytmetyczna-minimum
 \begin{equation}
-r_{am}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\frac{1}{2}\sum_{i=1}^{n}(p_{i}+q_{i})}
+r_{am}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\frac{1}{2}\sum_{i=1}^{n}(p_{i}+q_{i})} \cite{ANiewSkrypt}
 \end{equation}
 Własna propozycja miary podobieństwa
 \begin{equation}
@@ -305,9 +304,8 @@ Obserwując wyniki zawarte w tabeli 8. można zauważyć, że proces normalizacj
 \bibitem{JavaFX} 
 https://docs.oracle.com/javase/8/javafx/api/toc.htm
 
+\bibitem{ANiewSkrypt}
+A. Niewiadomski, \textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}, 21 września 2009 
+
 \end{thebibliography}
-{\color{blue} 
-Na końcu należy obowiązkowo podać cytowaną w sprawozdaniu
-literaturę, z której grupa korzystała w trakcie prac nad zadaniem (przykład na
-końcu szablonu)}
 \end{document}
