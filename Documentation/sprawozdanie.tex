@@ -52,13 +52,18 @@ gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to l
 \subsubsection{Własna metoda ekstrakcji cech}
 Trzecim wykorzystanym sposobem była własna metoda ekstrakcji wektora cech. Składała się ona z następujących własności:
 \begin{itemize}
-	\item Suma wartości TF dla grupy słów kluczowych
-	\item Suma wartości podobieństwa słowa kluczowego do analizowanego tekstu przy użyciu miary trigramów. \cite{ANiewSkrypt}
+	\item Suma wartości TF dla grupy słów kluczowych (każda grupa dotyczy innej klasy)
+	\item Suma wartości podobieństw słów kluczowych do analizowanego tekstu przy użyciu miary trigramów. (każda suma dotyczy słów kluczowych związanych z daną klasą) \cite{ANiewSkrypt}
 	\item Długość tekstu
 	\item Średnia z występujących w tekście liczb
 	\item Średnia długość słowa wśród 4 najdłuższych słów
 \end{itemize}
 
+Wartość podobieństwa tekstów przy użyciu miary trigramów obliczyć można z następującego wzoru:
+\begin{equation}
+sim_{n}(s_{1}, s_{2}) = \frac{1}{N-2}\sum_{i=1}^{N-2}h(i)
+\end{equation}
+ gdzie \(h(i) = 1\) jeśli 3-elementowy podciąg zaczynający się od i-tej pozycji występuje przynajmniej raz. W przeciwnym wypadku \(h(i) = 0\)
 
 \subsection{Normalizacja}
 Otrzymane na powyższe sposoby cechy zostały następnie znormalizowane przy użyciu wzoru:
@@ -323,7 +328,7 @@ https://docs.oracle.com/javase/8/javafx/api/toc.htm
 https://commons.apache.org/proper/commons-io/javadocs/api-2.5/index.html
 
 \bibitem{Stemmer}
-https://www.nltk.org/_modules/nltk/stem/snowball.html
+https://www.nltk.org/\_modules/nltk/stem/snowball.html
 
 \bibitem{ANiewSkrypt}
 Niewiadomski A., \textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}, 21 września 2009 
@@ -332,7 +337,7 @@ Niewiadomski A., \textit{Materiały, przykłady i ćwiczenia do przedmiotu Kompu
 Bernardi R., \textit{Term Frequency and Inverted Document Frequency}
 
 \bibitem{MLWiki}
-http://mlwiki.org/index.php/Feature_Normalization
+http://mlwiki.org/index.php/Feature\_Normalization
 
 \bibitem{KNNWiki}
 Altman N. S., \textit{An introduction to kernel and nearest-neighbor nonparametric regression}, 1992
