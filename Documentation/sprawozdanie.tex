@@ -30,23 +30,25 @@ Celem zadania było zaprojektowanie i implementacja narzędzia, pozwalającego n
 
 \section{Wprowadzenie}
 \subsection{Ekstrakcja cech}
-W celu szybkiego i efektywnego porównywania tekstów przydatna okazuje się ich reprezentacja w postaci wektora liczb. Współrzędne takiego wektora odpowiadają poszczególnym cechom, opisującym reprezentowany tekst. Proces analizy tekstu i określenia wartości liczbowej dla danej jego własności nazywamy ekstrakcją cech. Wybór odpowiedniego sposobu ekstrakcji jest kluczowy dla efektywnego działania programu. W ramach zadania zaimplementowano 3 takie sposoby.
+W celu szybkiego i efektywnego porównywania tekstów przydatna okazuje się ich reprezentacja w postaci wektora liczb. Współrzędne takiego wektora odpowiadają poszczególnym cechom, opisującym reprezentowany tekst. Proces analizy tekstu i określenia wartości liczbowej dla danej jego własności nazywamy ekstrakcją cech. Wybór odpowiedniego sposobu ekstrakcji jest kluczowy dla efektywnego działania programu. W ramach zadania zaimplementowano 3 takie sposoby bazujące na słowach kluczowych.
 
-\subsubsection{TF (Term Frequency)}
+Słowa te zostały wyznaczone przy pomocy przefiltrowanej listy słów, spośród której wybrano te wyrazy, które pojawiały się najczęściej dla danej klasy.
+
+\subsubsection{TF (Term Frequency)  \cite{TF_TF-IDF}}
 Dla każdego słowa kluczowego obliczana jest jego częstotliwość przy pomocy wzoru: 
 \begin{equation}
-tf(t,d) =  \frac{f_{t,d}}{|d|} \cite{TF_TF-IDF}
+tf(t,d) =  \frac{f_{t,d}}{|d|} 
 \end{equation}
 gdzie \(f_{t,d}\) jest liczbą wsytąpień słowa \(t\) w tekście \(d\), a \(|d|\) jest liczbą wszystkich słów w tym tekście. Wartości funkcji \(tf(t,d)\) dla każdego słowa kluczowego stanową współrzędne wektora cech, reprezentującego dany dokument.
 
-\subsubsection{TF-IDF (term frequency–inverse document frequency)}
+\subsubsection{TF-IDF (term frequency–inverse document frequency) \cite{TF_TF-IDF}} 
 Ten sposób ekstrakcji cech wykorzystuje TF(Term Frequency) i wzbogaca je o informację na temat tego, jak często dane słowo znajduje się w dokementach innych niż analizowany. Wartość TF-IDF można uzyskać przy pomocy wzoru: 
 \begin{equation}
-tfidf(t,d,D) = tf(t,d) \cdot idf(t,D) \cite{TF_TF-IDF}
+tfidf(t,d,D) = tf(t,d) \cdot idf(t,D) 
 \end{equation}
 gdzie \(tf(t,d)\), jest wartością TF obliczoną przy pomocy woru 1., a \(idf(t,D)\) wyraża się wzorem
 \begin{equation}
-idf(t,D) = log\frac{|D|}{n} \cite{TF_TF-IDF}
+idf(t,D) = log\frac{|D|}{n} 
 \end{equation}
 gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to liczba tekstów, w których przynajmniej raz znajduje się słowo \(t\).
 
@@ -54,51 +56,51 @@ gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to l
 Trzecim wykorzystanym sposobem była własna metoda ekstrakcji. Składała się ona z następujących cech:
 \begin{itemize}
 	\item Suma wartości TF dla grupy słów kluczowych (każda grupa dotyczy innej klasy)
-	\item Suma wartości podobieństw słów kluczowych do analizowanego tekstu przy użyciu miary trigramów. (każda suma dotyczy słów kluczowych związanych z daną klasą) \cite{ANiewSkrypt}
+	\item Suma wartości podobieństw słów kluczowych do analizowanego tekstu przy użyciu miary trigramów. (każda suma dotyczy słów kluczowych związanych z daną klasą) 
 	\item Długość tekstu
 	\item Średnia z występujących w tekście liczb
 	\item Średnia długość słowa wśród 4 najdłuższych słów
 \end{itemize}
 
-\subsection{Miara trigramów}
+\subsection{Miara trigramów \cite{ANiewSkrypt}} 
 Wartość podobieństwa tekstów przy użyciu miary trigramów obliczyć można z następującego wzoru:
 \begin{equation}
 sim_{n}(s_{1}, s_{2}) = \frac{1}{N-2}\sum_{i=1}^{N-2}h(i)
 \end{equation}
  gdzie \(h(i) = 1\) jeśli 3-elementowy podciąg zaczynający się od i-tej pozycji występuje przynajmniej raz. W przeciwnym wypadku \(h(i) = 0\)
 
-\subsection{Normalizacja}
+\subsection{Normalizacja \cite{MLWiki}}
 Otrzymane na powyższe sposoby cechy zostały następnie znormalizowane przy użyciu wzoru:
 \begin{equation}
-x' = \frac{x-x_{min}}{x_{max}-x_{min}} \cite{MLWiki}
+x' = \frac{x-x_{min}}{x_{max}-x_{min}} 
 \end{equation}
 
 \subsection{Algorytm KNN}
 Do klasyfikacji tekstów wykorzystany został algorytm KNN(k-nearest neighbors). Pozwala on na przypisanie danej próbce klasy na podstawie tego, jak zaklsyfikowani są jej najbliżsi sąsiedzi. Bliskość dwóch próbek zdefiniowana jest za pomocą odpowiedniej metryki lub miary podobieństwa. \cite{KNNWiki}
 
 W ramach zadania zaimplementowano następujące metryki: \newline
-Metryka euklidesowa:
+Metryka euklidesowa \cite{ANiewSkrypt}:
 \begin{equation}
-d(p,q) = \sqrt{\sum_{i=1}^{n} (p_{i} -q_{i})^{2}} \cite{ANiewSkrypt}
+d(p,q) = \sqrt{\sum_{i=1}^{n} (p_{i} -q_{i})^{2}} 
 \end{equation}
-Metryka uliczna:
+Metryka uliczna \cite{ANiewSkrypt}:
 \begin{equation}
-d(p,q) = \sum_{i=1}^{n} |p_{i} -q_{i}| \cite{ANiewSkrypt}
+d(p,q) = \sum_{i=1}^{n} |p_{i} -q_{i}| 
 \end{equation}
-Metryka Czebyszewa:
+Metryka Czebyszewa \cite{ChebyshevWiki}:
 \begin{equation}
-d(p,q) = max_{i}(p_{i} -q_{i}) \cite{ChebyshevWiki}
+d(p,q) = max_{i}(p_{i} -q_{i}) 
 \end{equation}
 gdzie \(n\) jest długością wektorów, \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz \(q = [q_{1}, q_{2}, ..., q_{n}]\) są wektorami, między którymi liczona jest odległość. 
 
 Oprócz tego zaimplementowano następujące miary podobieństwa: \newline
-Minimum-maximum
+Minimum-maximum \cite{ANiewSkrypt}
 \begin{equation}
-r_{mm}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\sum_{i=1}^{n}max(p_{i},q_{i})} \cite{ANiewSkrypt}
+r_{mm}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\sum_{i=1}^{n}max(p_{i},q_{i})} 
 \end{equation}
-Średnia arytmetyczna-minimum
+Średnia arytmetyczna-minimum \cite{ANiewSkrypt}
 \begin{equation}
-r_{am}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\frac{1}{2}\sum_{i=1}^{n}(p_{i}+q_{i})} \cite{ANiewSkrypt}
+r_{am}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\frac{1}{2}\sum_{i=1}^{n}(p_{i}+q_{i})} 
 \end{equation}
 Własna propozycja miary podobieństwa
 \begin{equation}
@@ -117,7 +119,7 @@ W projekcie skorzystano z natępujących bibliotek:
 	\item snowball-stemmer - biblioteka udostępniająca stemmer; \cite{Stemmer}
 \end{itemize}
 
-Projekt podzielono na dwa główne pakiety, przechowujący klasy warstwy prezentacji pakiet \textit{gui}, oraz pakiet \textit{logic}, w którym jest zawarta cała logika aplikacji. Na pakiet \textit{logic} składają się liczne podpakiety, które wydzielają poszczególne funkcjonalności aplikacji jeszcze bardziej. Są to: pakiet \textit{classification}, którego klasy realizują zagadnienie klasyfikacji obiektów tekstowych; pakiet \textit{extractors}, który zawiera w sobie ekstraktory cech; pakiet \textit{features} zawierający w sobie klasy, reprezentujące cechy obiektów; pakiet \textit{metrics}, którego klasy realizują poszczególne metryki; oraz pakiet \textit{utils} zawierający w sobie wszystkie klasy wspomagające działanie programu, niezwiązane bezpośrednio z ideą działania sieci knn.
+Projekt podzielono na dwa główne pakiety, przechowujący klasy warstwy prezentacji pakiet \textit{gui}, oraz pakiet \textit{logic}, w którym jest zawarta cała logika aplikacji. Na pakiet \textit{logic} składają się liczne podpakiety, które wydzielają poszczególne funkcjonalności aplikacji jeszcze bardziej. Są to: pakiet \textit{classification}, którego klasy realizują zagadnienie klasyfikacji obiektów tekstowych; pakiet \textit{extractors}, który zawiera w sobie ekstraktory cech; pakiet \textit{features} zawierający w sobie klasy, reprezentujące cechy obiektów; pakiet \textit{metrics}, którego klasy realizują poszczególne metryki; oraz pakiet \textit{utils} zawierający w sobie wszystkie klasy wspomagające działanie programu, niezwiązane bezpośrednio z ideą działania algorytmu knn. Podnadto w projekcie znajdują się pliki Scene.fxml oraz Styles.css, które opisują elementy graficznego interfejsu użytkownika.
 
 Opis poszczególnych klas w ramach pakietu:
 
@@ -132,7 +134,7 @@ Opis poszczególnych klas w ramach pakietu:
 		\item TextSample.java - klasa reprezentująca próbkę tekstu, będąca reprezentacją badanych artykułów, zawiera informacje o etykiecie, i słowach zawartych w artykule;
 		\item ExtractedSample.java - klasa reprezentująca wyekstrahowaną próbkę tekstu, na którą składa się jedynie etykieta oraz wektor cech tej próbki;
 		\item Normalizer.java - klasa zdolna normalizować cechy wyekstrahowanej próbki do przedziału [0,1], w oparciu o cechy zbioru obiektów(tu zbioru treningowego);
-		\item KNNClasification.java - reprezentacja sieci knn, do najważniejszych metod tej klasy należą metoda \textit{train()}, która bazując na zbiorze treningowym, tworzy strukturę sieci, oraz metoda \textit{classify()} dokonująca klasyfikacji obiektów zbioru testowego w oparciu o utworzoną wcześniej strukturę;
+		\item KNNClasification.java - reprezentacja algorytmu knn, do najważniejszych metod tej klasy należą metoda \textit{train()}, która bazując na zbiorze treningowym, tworzy odpowiednią strukturę, oraz metoda \textit{classify()} dokonująca klasyfikacji obiektów zbioru testowego w oparciu o utworzoną wcześniej strukturę;
 	\end{itemize}
 	\item logic.extraction
 	\begin{itemize}
@@ -173,8 +175,6 @@ Opis poszczególnych klas w ramach pakietu:
 	\end{itemize}
 \end{itemize}
 
-Podnadto w projekcie znajdują się pliki Scene.fxml oraz Styles.css które opisują elementy graficznego interfejsu użytkownika.
-
 \begin{center}
 	\begin{figure}[H]
 		\advance\leftskip-3.65cm
@@ -185,7 +185,6 @@ Podnadto w projekcie znajdują się pliki Scene.fxml oraz Styles.css które opis
 
 \section{Materiały i metody}
 Przed rozpoczęciem klasyfikacji analizowane teksty zostały odpowiednio przygotowane do wykorzystania. Treść została podzielona na pojedyncze słowa, które następnie zostały poddane procesowi stemmingu, który to polega na pozbyciu się końcówek fleksyjnych wyrazu. Z tekstu usunięto wszystkie znaki interpunkcyjne, a wielkie litery zamieniono na małe. Następnie, przy pomocy odpowiednio przygotowanej stop-listy, pozbyto się niepożądanych słów, które nie niosły ze sobą większego znaczenia dla procesu klasyfikacji.
-We wszystkich, opisanych poniżej eksperymentach słowa kluczowe zostały wyznaczone w ten sam sposób. Z przefiltrowanej listy słów wybrano te, które pojawiały się najczęściej dla danej klasy. 
 Do eksperymentów użyto dwóch zbiorów danych. Własnoręcznie opracowany spis cytatów znanych pisarzy oraz dostępny pod \href{http://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection}{tym adresem} zbiór artykułów opublikowanych przez agencję prasową Reuters w 1987 r. W przypadku tego drugiego, dokonano klasyfikacji z uwagi na dwie kategorie.
 \begin{itemize}
 	\item places - Nazwa państwa, którego dotyczy artykuł. Podczas badań brano pod uwagę następujące wartości tej etykiety: west-germany, usa, france, uk, canada, japan.
@@ -204,10 +203,11 @@ Aby zbadać wpływ parametru k, przeprowadzono eksperyment przy użyciu ekstrakt
 Podczas tego eksperymentu wykorzystano zbiór artykułów agencji Reuters, 3 słowa kluczowe na klasę, ekstraktor TF oraz parametr k o wartości 3. Klasyfikację przeprowadzono wględem kategorii topics. Eksperyment powtórzono dla różnych metryk i miar podobieństwa.
 \subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
 Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Klasyfikacja odbyła się względem wartości kategorii topics. Użyto 3 słów kluczowych na klasę, metryki euklidesowej oraz współczynnika k równego 7. Badanie powtórzono dla różnych ekstraktorów cech w wariancie z normalizacją i bez niej.
+
 \newpage
 \section{Wyniki}
 \subsection{Eksperyment 1. Wpływ wyboru ekstraktora cech na klasyfikację}
-\begin{table}[h]
+\begin{table}[H]
 	\caption{Wpływ wyboru ekstraktora cech - zbiór danych Reuters}
 	\begin{tabular}{l|l|l|l|l|l|l}
 		Kategoria& \multicolumn{3}{|l}{ Reuters - places} 	& \multicolumn{3}{|l}{ Reuters - topics}\\
@@ -218,7 +218,7 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &38.656&834.892&8.288&12.800&248.569&1.882\\
 	\end{tabular}
 \end{table}
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 	\caption{Wpływ wyboru ekstraktora cech - własny zbiór danych, 3 słowa kluczowe na klasę}
 	\begin{tabular}{l|l|l|l}
@@ -228,7 +228,7 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &0.001&0.012&0.001\\
 	\end{tabular}
 \end{table}
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 \caption{Wpływ wyboru ekstraktora cech - własny zbiór danych, 10 słów kluczowych na klasę}
 	\begin{tabular}{l|l|l|l}
@@ -238,7 +238,7 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &0.002&0.021&0.002\\
 	\end{tabular}
 \end{table}
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 	\caption{Wpływ wyboru ekstraktora cech - własny zbiór danych, 20 słów kluczowych na klasę}
 	\begin{tabular}{l|l|l|l}
@@ -248,9 +248,9 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &0.010&0.092&0.006\\
 	\end{tabular}
 \end{table}
-\newpage
+
 \subsection{Eksperyment 2. Wpływ parametru k na efektywność klasyfikacji} 
-\begin{table}[h]
+\begin{table}[H]
 	\caption{Wpływ parametru k - zbiór danych Reuters, kategoria places}
 	\begin{tabular}{l|l|l|l|l|l|l}
 		Kategoria& \multicolumn{3}{|l}{ Reuters - places} 	& \multicolumn{3}{|l}{ Reuters - topics}\\
@@ -261,7 +261,7 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &37.225&58.545&86.953&108.269&132.328&155.529\\
 	\end{tabular}
 \end{table}
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 	\caption{Wpływ parametru k - własny zbiór danych}
 	\begin{tabular}{l|l|l|l}
@@ -271,9 +271,9 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &0.003&0.003&0.003\\
 	\end{tabular}
 \end{table}
-\newpage
+
 \subsection{Eksperyment 3. Wpływ wyboru metryki/miary podobieńśtwa na efektywność klasyfikacji}
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 	\caption{Wpływ wyboru metryki/miary podobieńśtwa}
 	\begin{tabular}{l|l|l}
@@ -287,9 +287,9 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		Własna miara podobieńśtwa&77.3&53.930\\
 	\end{tabular}
 \end{table}
-\subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
 
-\begin{table}[h]
+\subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
+\begin{table}[H]
 	\caption{Wpływ normalizacji na klasyfikację}
 	\begin{tabular}{l|l|l|l|l|l|l}
 		& \multicolumn{3}{|l}{ Brak normalizacji}	& \multicolumn{3}{|l}{ Normalizacja}\\
@@ -300,17 +300,19 @@ Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Kla
 		czas wykonania [s] &4.685&71.999&8.397&5.152&71.650&9.043\\
 	\end{tabular}
 \end{table}
-\newpage
 
+\newpage
 \section{Dyskusja}
 \subsection{Eksperyment 1. Wpływ wyboru ekstraktora cech na klasyfikację}
-Niezależnie od wybranego zbioru danych i kategorii klasyfikacji ekstraktor TFIDF jest zdecydowanie najwolniejszym ze sposobów na utworzenie wektora cech. Nie jest on też dużo bardziej efektywny niż inne ekstraktory, szczególnie dla małej liczby słów kluczowych. Dla parametrów z tabeli 2. okazał się on nawet mniej skuteczny. Jego przewaga objawia się dopiero przy dużej liczbie słów kluczowych, co może wynikać z tego, że przykłada on mniejszą wagę do słów mniej istotnych (występujących także w tekstach, należących do innych klas). Opracowany na ptrzeby zadania ekstraktor cech działa z zauważalnie mniejszą skutecznością niż jego konkurenci, jest za to szybszy zarówno od ekstraktora TF jak i TFIDF, co może wynikać z mniejszej ilości ekstrahowanych przez niego cech.
+Niezależnie od wybranego zbioru danych i kategorii klasyfikacji ekstraktor TFIDF jest zdecydowanie najwolniejszym ze sposobów na utworzenie wektora cech. Nie jest on też dużo bardziej efektywny niż inne ekstraktory, szczególnie dla małej liczby słów kluczowych. Dla parametrów z tabeli 2. okazał się on nawet mniej skuteczny. Jego przewaga objawia się dopiero przy dużej liczbie słów kluczowych, co może wynikać z tego, że przykłada on mniejszą wagę do słów mniej istotnych (występujących także w tekstach, należących do innych klas). Opracowany na ptrzeby zadania ekstraktor cech działa z zauważalnie mniejszą skutecznością niż jego konkurenci, jest za to szybszy zarówno od ekstraktora TF jak i TFIDF, co może wynikać z mniejszej ilości ekstrahowanych przez niego cech. Na podstawie wyników zauważyć można także, że dla autorskiego zbioru danych, skuteczność jest znacznie niższa. Wynika to z faktu, że elementy tego zbioru, są znacznie krótsze, a liczba wszystkich próbek jest zauważalnie mniejsza. 
 \subsection{Eksperyment 2. Wpływ parametru k na efektywność klasyfikacji}
  Wyniki eksperymentu obrazują skutki zbyt dużej wartości parametru k. W tabeli 5. możemy zauważyć, że pomimo zwiększonego czasu realizacji klasyfikacji, skuteczność zmieniła się nieznacznie. Zupełnie inne wyniki widoczne są w tabeli 6. Dla zdefiniowanego na potrzeby zadania zbioru danych zwiększenie parametru k pogorszyło skuteczność. Wynika to z faktu, że dla większego k, mniej istotna jest odległość między próbkami, a na znaczeniu zyskuje ogólna liczba reprezentantów danej klasy w zbiorze danych. Efekt ten jest mniej widoczny dla zbioru artykułów agencji Reuters, ze względu na jego większą obszerność.
 \subsection{Eksperyment 3. Wpływ wyboru metryki/miary podobieńśtwa na efektywność klasyfikacji}
 Wśród sposobów na określanie bliskości pomiędzy wektorami możemy wyznaczyć dwie główne grupy - metryki oraz miary podobieństwa. Te pierwsze przyczyniły się do większej skuteczności klasyfikacji. Osiągnęły one także swój cel w krótszym czasie. Różnice pomiędzy skutecznością przedstawicieli tych samych grup jest niewielka. Wynikać to może z faktu, że przez sposób, w jaki zaimplementowane zostały miary podobieństwa, wymagają one dodatkowej operacji przeskalowania ich wartości na zbiór typowy dla metryk. Szczególnie efektywna okazała się metryka Czebyszewa, która osiągnęła największą skuteczność i najkrótszy czas wykonania dla parametrów opisanych w eksperymencie 3. 
 \subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
 Obserwując wyniki zawarte w tabeli 8. można zauważyć, że proces normalizacji nie wiąże się ze znaczącą różnicą w czasie wykonania. Jej sensowność zależy jednak od wybranego ekstraktora. Dla TF oraz TFIDF różnica w skuteczności jest nieznaczna. Efekt normalizacji możemy jednak zaobserwować dla opracowanego na potrzeby zadania ekstraktora. Wynika to z faktu, iż w porównaniu do pozostałych ekstraktorów, jego cechy przyjmują bardziej zróżnicowane wartości. Normalizacja pozwala zatem na zaniedbanie różnic w istotności cech, wynikających z dużych rozbieżności w ich wartościach.
+
+\newpage
 \section{Wnioski}
 \begin{itemize}
 	\item Normalizacja jest użytecznym narzędziem w przypadku cech o zróżnicowanych wartościach.
