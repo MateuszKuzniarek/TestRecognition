@@ -1,6 +1,8 @@
 \documentclass{classrep}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{ {./} }
 \usepackage{color}
 
 \studycycle{Informatyka, studia dzienne, I st.}
@@ -158,7 +160,11 @@ Opis poszczególnych klas w ramach pakietu:
 	\end{itemize}
 \end{itemize}
 
-{\color{blue} UML!!!!!!!!!!!!!!!!!!}
+
+\begin{figure}[h]
+	\advance\leftskip-4cm
+		\includegraphics[width=\paperwidth]{ksr_uml}
+\end{figure}
 
 \section{Materiały i metody}
 Przed rozpoczęciem klasyfikacji analizowane teksty zostały odpowiednio przygotowane do wykorzystania. Treść została podzielona na pojedyncze słowa, które następnie zostały poddane procesowi stemmingu, który to polega na pozbyciu się końcówek fleksyjnych wyrazu. Z tekstu usunięto wszystkie znaki interpunkcyjne, a wielkie litery zamieniono na małe. Następnie, przy pomocy odpowiednio przygotowanej stop-listy, pozbyto się niepożądanych słów, które nie niosły ze sobą większego znaczenia dla procesu klasyfikacji.
