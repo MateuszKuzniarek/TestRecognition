@@ -289,21 +289,16 @@ Niezależnie od wybranego zbioru danych i kategorii klasyfikacji ekstraktor TFID
 Wśród sposobów na określanie bliskości pomiędzy wektorami możemy wyznaczyć dwie główne grupy - metryki oraz miary podobieństwa. Te pierwsze przyczyniły się do większej skuteczności klasyfikacji. Osiągnęły one także swój cel w krótszym czasie. Różnice pomiędzy skutecznością przedstawicieli tych samych grup jest niewielka. Wynikać to może z faktu, że przez sposób, w jaki zaimplementowane zostały miary podobieństwa, wymagają one dodatkowej operacji przeskalowania ich wartości na zbiór typowy dla metryk. Szczególnie efektywna okazała się metryka Czebyszewa, która osiągnęła największą skuteczność i najkrótszy czas wykonania dla parametrów opisanych w eksperymencie 3. 
 \subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
 Obserwując wyniki zawarte w tabeli 8. można zauważyć, że proces normalizacji nie wiąże się ze znaczącą różnicą w czasie wykonania. Jej sensowność zależy jednak od wybranego ekstraktora. Dla TF oraz TFIDF różnica w skuteczności jest nieznaczna. Efekt normalizacji możemy jednak zaobserwować dla opracowanego na potrzeby zadania ekstraktora. Wynika to z faktu, iż w porównaniu do pozostałych ekstraktorów, jego cechy przyjmują bardziej zróżnicowane wartości. Normalizacja pozwala zatem na zaniedbanie różnic w istotności cech, wynikających z dużych rozbieżności w ich wartościach.
-{\color{blue}
-Sekcja ta powinna zawierać dokładną interpretację uzyskanych wyników
-eksperymentów wraz ze szczegółowymi wnioskami z nich płynącymi. Najcenniejsze
-są, rzecz jasna, wnioski o charakterze uniwersalnym, które mogą być istotne
-przy innych, podobnych zadaniach. Należy również omówić i wyjaśnić wszystkie
-napotakane problemy (jeśli takie były). Każdy wniosek powinien mieć poparcie
-we wcześniej przeprowadzonych eksperymentach (odwołania do konkretnych
-wyników). Jest to jedna z najważniejszych sekcji tego sprawozdania, gdyż
-prezentuje poziom zrozumienia badanego problemu.}
 \section{Wnioski}
-{\color{blue}W tej, przedostatniej, sekcji należy zamieścić podsumowanie
-najważniejszych wniosków z sekcji poprzedniej. Najlepiej jest je po prostu
-wypunktować. Znów, tak jak poprzednio, najistotniejsze są wnioski o
-charakterze uniwersalnym.}
-
+\begin{itemize}
+	\item Normalizacja jest użytecznym narzędziem w przypadku cech o zróżnicowanych wartościach.
+	\item Wartość parametru k powinna być dopasowana do rozmiaru zbioru danych.
+	\item TFIDF może okazać się przydatny w sytuacjach, gdy czas wykonania programu nie ma większego znaczenia, a dobrane słowa kluczowe słabo identyfikują określone klasy.
+	\item Proces stemmingu może znacznie ułatwić pracę z klasyfikacją tekstu
+	\item Sposób obliczania odległości między wektorami należy dobrać zarówno z uwagi na rodzaj danych jak i na sposób implementacji algorytmu KNN.
+	\item Skorzystanie z odpowiednio zdefiniowanej stop-listy pozwala na wykluczenie z analizy mało użytecznych informacji.
+	\item Algorytm KNN jest użytecznym, a zarazem stosunkowo prostym algorytmem klasyfikacji.
+\end{itemize}
 
 \begin{thebibliography}{0}
 
