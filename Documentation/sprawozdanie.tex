@@ -78,6 +78,47 @@ gdzie \(n\) jest długością wektorów \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz 
 TO BE CONTINUED }
 
 \section{Opis implementacji}
+
+W celu realizacji zadania została napisana aplikacja okienkowa w języku Java. Warstwa prezentacji została z kolei przygotowana w technologii JavaFx\cite{JavaFX}.
+
+Projekt podzielono na dwa główne pakiety, przechowujący klasy warstwy prezentacji pakiet \textit{gui}, oraz pakiet \textit{logic}, w którym jest zawarta cała logika aplikacji. Na pakiet \textit{logic} składają się liczne podpakiety, które wydzielają poszczególne funkcjonalności aplikacji jeszcze bardziej. Są to: pakiet \textit{classification}, którego klasy realizują zagadnienie klasyfikacji obiektów tekstowych; pakiet \textit{extractors}, który zawiera w sobie ekstraktory cech; pakiet \textit{features} zawierający w sobie klasy, reprezentujące cechy obiektów; pakiet \textit{metrics}, którego klasy realizują poszczególne metryki; oraz pakiet \textit{utils} zawierający w sobie wszystkie klasy wspomagające działanie programu, niezwiązane bezpośrednio z idęą działania sieci knn.
+
+Opis poszczególnych klas w ramach pakietu:
+
+\begin{itemize}
+	\item gui
+	\begin{itemize}
+		\item MainApp.java - klasa uruchomieniowa aplikacji, jej celem jest jedynie skonfigurowanie oraz ustawienie nowej sceny JavaFX;
+		\item FXMLController.java - klasa kontrolera JavaFX przypisana do pliku FXML definiująca sposób działania elementów interfejsu użytkownika;
+	\end{itemize}
+	\item logic.classification
+	\begin{itemize}
+		\item TextSample.java - klasa reprezentująca próbkę tekstu, będąca reprezentacją badanych artykułów, zawiera informacje o etykiecie, i słowach zawartych w artykule;
+		\item ExtractedSample.java - klasa reprezentująca wyekstrahowaną próbkę tekstu, na którą składa się jedynie etykieta oraz wektor cech tej próbki;
+		\item Normalizer.java - klasa zdolna normalizować cechy wyekstrahowanej próbki do przedziału [0,1], w oparciu o cechy zbioru obiektów(tu zbioru treningowego);
+		\item KNNClasification.java - reprezentacja sieci knn, do najważniejszych metod tej klasy należą metoda \textit{train()}, która bazując na zbiorze testowym, tworzy strukturę sieci, oraz metoda \textit{classify()} dokonująca klasyfikacji obiektów zbioru testowego w oparciu o utworzoną wcześniej strukturę;
+	\end{itemize}
+	\item logic.extraction
+	\begin{itemize}
+		\item FeatureExtractor.java - klasa abstrakcyjna ekstraktora cech;
+		\item TFExtractor.java - klasa ekstraktora cechy term frequency generująca cechy w oparciu o częstotliwość występowania słów kluczowych;
+		\item TFIDFExtractor.java - klasa ekstraktora cech term frequency inverse document frequency, która ekstrahuje cechy w oparciu o częstotliwość wystąpienia słów kluczowych oraz ich unikalności w stosunku do badanego obiektu;
+		\item CustomExtractor.java - klasa autorskiego ekstraktora cech, który działa w oparciu o długość słów???????????, średnią długość najdłuższych słów, oraz średnią arytmetyczną wszystkich liczb o ile wystąpiły w tekście;
+	\end{itemize}
+	\item logic.features
+	\begin{itemize}
+		\item todo
+	\end{itemize}
+	\item logic.metrics
+	\begin{itemize}
+		\item todo
+	\end{itemize}
+	\item logic.utils
+	\begin{itemize}
+		\item todo
+	\end{itemize}
+\end{itemize}
+
 {\color{blue}
 Należy tu zamieścić krótki i zwięzły opis zaprojektowanych klas oraz powiązań
 między nimi. Powinien się tu również znaleźć diagram UML  (diagram klas)
@@ -127,6 +168,10 @@ charakterze uniwersalnym.}
 
 
 \begin{thebibliography}{0}
+
+\bibitem{JavaFX} 
+https://docs.oracle.com/javase/8/javafx/api/toc.htm
+
 \end{thebibliography}
 {\color{blue} 
 Na końcu należy obowiązkowo podać cytowaną w sprawozdaniu
