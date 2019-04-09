@@ -1,5 +1,6 @@
 \documentclass{classrep}
 \usepackage[utf8]{inputenc}
+\usepackage{hyperref}
 \usepackage{color}
 
 \studycycle{Informatyka, studia dzienne, I st.}
@@ -51,10 +52,18 @@ gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to l
 Trzecim wykorzystanym sposobem była własna metoda ekstrakcji wektora cech. Składała się ona z następujących własności:
 \begin{itemize}
 	\item Suma wartości TF dla grupy słów kluczowych
+	\item Suma wartości podobieństwa słowa kluczowego do analizowanego tekstu przy użyciu miary trigramów.
 	\item Długość tekstu
 	\item Średnia z występujących w tekście liczb
 	\item Średnia długość słowa wśród 4 najdłuższych słów
 \end{itemize}
+
+
+\subsection{Normalizacja}
+Otrzymane na powyższe sposoby cechy zostały następnie znormalizowane przy użyciu wzoru:
+\begin{equation}
+x' = \frac{x-x_{min}}{x_{max}-x_{min}}
+\end{equation}
 
 \subsection{Algorytm KNN}
 Do klasyfikacji tekstów wykorzystany został algorytm KNN(k-nearest neighbors). Pozwala on na przypisanie danej próbce klasy na podstawie tego, jak zaklsyfikowani są jej najbliżsi sąsiedzi. Bliskość dwóch próbek zdefiniowana jest za pomocą odpowiedniej metryki lub miary podobieństwa. 
@@ -74,8 +83,22 @@ d(p,q) = max_{i}(p_{i} -q_{i})
 \end{equation}
 gdzie \(n\) jest długością wektorów \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz \(q = [q_{1}, q_{2}, ..., q_{n}]\) są wektorami, między którymi liczona jest odległość. 
 
-{\color{blue}
-TO BE CONTINUED }
+Oprócz tego zaimplementowano następujące miary podobieństwa: \newline
+Minimum-maximum
+\begin{equation}
+r_{mm}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\sum_{i=1}^{n}max(p_{i},q_{i})}
+\end{equation}
+Średnia arytmetyczna-minimum
+\begin{equation}
+r_{am}(p,q) = \frac{\sum_{i=1}^{n}min(p_{i},q_{i})}{\frac{1}{2}\sum_{i=1}^{n}(p_{i}+q_{i})}
+\end{equation}
+Własna propozycja miary podobieństwa
+
+\begin{equation}
+r_{wm}(p,q) = (r_{mm}(p,q))^{2}
+\end{equation}
+
+Powyższych metryk oraz miar podobieństw użyto do znalezieniu k najbliższych analizowanemu tekstowi próbek. Na ich podstawie tekst mógł zostać zaklasyfikowany do najbardziej licznej wśród wybranych sąsiadów z klas. W przypadku wielu jednakowo-licznych klas, wybierano tę, której próbka znajdowała się najbliżej analizowanego tekstu.
 
 \section{Opis implementacji}
 
@@ -126,29 +149,123 @@ prezentujący najistotniejsze elementy stworzonej aplikacji. Należy także
 podać, w jakim języku programowania została stworzona aplikacja. }
 
 \section{Materiały i metody}
-{\color{blue}
-W tym miejscu należy opisać, jak przeprowadzone zostały wszystkie badania,
-których wyniki i dyskusja zamieszczane są w dalszych sekcjach. Opis ten
-powinien być na tyle dokładny, aby osoba czytająca go potrafiła wszystkie
-przeprowadzone badania samodzielnie powtórzyć w celu zweryfikowania ich
-poprawności (a zatem m.in. należy zamieścić tu opis architektury sieci,
-wartości współczynników użytych w kolejnych eksperymentach, sposób
-inicjalizacji wag, metodę uczenia itp. oraz informacje o danych, na których
-prowadzone były badania). Przy opisie należy odwoływać się i stosować do
-opisanych w sekcji drugiej wzorów i oznaczeń, a także w jasny sposób opisać
-cel konkretnego testu. Najlepiej byłoby wyraźnie wyszczególnić (ponumerować)
-poszczególne eksperymenty tak, aby łatwo było się do nich odwoływać dalej.}
+Przed rozpoczęciem klasyfikacji analizowane teksty zostały odpowiednio przygotowane do wykorzystania. Treść została podzielona na pojedyncze słowa, które następnie zostały poddane procesowi stemmingu, który to polega na pozbyciu się końcówek fleksyjnych wyrazu. Z tekstu usunięto wszystkie znaki interpunkcyjne, a wielkie litery zamieniono na małe. Następnie, przy pomocy odpowiednio przygotowanej stop-listy, pozbyto się niepożądanych słów, które nie niosły ze sobą większego znaczenia dla procesu klasyfikacji.
+We wszystkich, opisanych poniżej eksperymentach słowa kluczowe zostały wyznaczone w ten sam sposób. Z przefiltrowanej listy słów wybrano te, które pojawiały się najczęściej dla danej klasy. 
+Do eksperymentów użyto dwóch zbiorów danych. Własnoręcznie opracowany spis cytatów znanych pisarzy oraz dostępny pod \href{http://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection}{tym adresem} zbiór artykułów opublikowanych przez agencję prasową Reuters w 1987 r. W przypadku tego drugiego, dokonano klasyfikacji z uwagi na dwie kategorie.
+\begin{itemize}
+	\item places - Nazwa państwa, którego dotyczy artykuł. Podczas badań brano pod uwagę następujące wartości tej etykiety: west-germany, usa, france, uk, canada, japan.
+	\item topics - tematyka artykułu, przy badaniach wykorzystywano próbki o wartościach: earn, acq lub trade w tej kategorii.
+\end{itemize}
+W obu przypadakch pominięto artykuły, które nie zawierały informacji o danej kategorii lub klasyfikowały artykuł do dwóch lub więcej klas jednocześnie.
 
+Podczas wszystkich eksperymentów odnotowywano skuteczność klasyfikacji (stosunek liczby poprawnie wytypowanych etykiet do liczby wszystkich próbek testowych) oraz czas klasyfikacji (w sekundach), na który składało się ekstrahowanie cech próbek ze zbioru treningowego jak i klasyfikacja próbek testowych.
+
+Dostępne dane zostały podzielone na zbiór treningowy i testowy. Ten pierwszy stanowił bazę, na podstawie której algorytm klasyfikował podane mu próbki. Zbiór testowy został użyty do zbadania efektywności algorytmu w poniższych eksperymentach:
+\subsection{Eksperyment 1. Wpływ wyboru ekstraktora cech na klasyfikację}
+Do zbadania wpływu ekstraktora cech na klasyfikację wybrano metrykę euklidesową oraz wartośc parametru k równą 3. Następnie odnotowywano wyniki eksperymentu dla różnych ekstraktorów, zmieniając zbiory danych, kategorie klasyfikacji oraz liczbę słów kluczowych na klasę. 
+\subsection{Eksperyment 2. Wpływ parametru k na efektywność klasyfikacji}
+Aby zbadać wpływ parametru k, przeprowadzono eksperyment przy użyciu ekstraktora cech Term Frequency, metryki euklidesowej oraz 3 słów kluczowych na każdą klasę. Następnie porównano wyniki dla odmiennych wartości parametru k. Eksperyment powtórzono dla różnych zbiorów danych i kategorii klasyfikacji. 
+\subsection{Eksperyment 3. Wpływ wyboru metryki/miary podobieńśtwa na efektywność klasyfikacji}
+Podczas tego eksperymentu wykorzystano zbiór artykułów agencji Reuters, 3 słowa kluczowe na klasę, własny ekstraktor oraz parametr k o wartości 7. Klasyfikację przeprowadzono wględem kategorii places.
+\subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
+Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Klasyfikacja odbyła się względem wartości kategorii topics. Użyto 3 słów kluczowych na klasę, metryki euklidesowej oraz współczynnika k równego 7. Badanie powtórzono dla różnych ekstraktorów cech w wariancie z normalizacją i bez niej.
+\newpage
 \section{Wyniki}
-{\color{blue}
-W tej sekcji należy zaprezentować, dla każdego przeprowadzonego eksperymentu,
-kompletny zestaw wyników w postaci tabel, wykresów itp. Powinny być one tak
-ponazywane, aby było wiadomo, do czego się odnoszą. Wszystkie tabele i wykresy
-należy oczywiście opisać (opisać co jest na osiach, w kolumnach itd.) stosując
-się do przyjętych wcześniej oznaczeń. Nie należy tu komentować i interpretować
-wyników, gdyż miejsce na to jest w kolejnej sekcji. Tu również dobrze jest
-wprowadzić oznaczenia (tabel, wykresów) aby móc się do nich odwoływać
-poniżej.}
+\subsection{Eksperyment 1. Wpływ wyboru ekstraktora cech na klasyfikację}
+\begin{table}[h]
+	\caption{Wpływ wyboru ekstraktora cech - zbiór danych Reuters}
+	\begin{tabular}{l|l|l|l|l|l|l}
+		Kategoria& \multicolumn{3}{|l}{ Reuters - places} 	& \multicolumn{3}{|l}{ Reuters - topics}\\
+		\hline
+		Ekstraktor& TF & TFIDF & Własny & TF & TFIDF & Własny\\
+		\hline
+		skuteczność [\%]   &87,7&87,7&79,7&87,9&87,9&55,5\\
+		czas wykonania [s] &38.656&834.892&8.288&12.800&248.569&1.882\\
+	\end{tabular}
+\end{table}
+\begin{table}[h]
+	\centering
+	\caption{Wpływ wyboru ekstraktora cech - własny zbiór danych, 3 słowa kluczowe na klasę}
+	\begin{tabular}{l|l|l|l}
+		Ekstraktor& TF & TFIDF & Własny\\
+		\hline
+		skuteczność [\%]   &47.3&44.7&39.4\\
+		czas wykonania [s] &0.001&0.012&0.001\\
+	\end{tabular}
+\end{table}
+\begin{table}[h]
+	\centering
+\caption{Wpływ wyboru ekstraktora cech - własny zbiór danych, 10 słów kluczowych na klasę}
+	\begin{tabular}{l|l|l|l}
+		Ekstraktor& TF & TFIDF & Własny\\
+		\hline
+		skuteczność [\%]   &28.9&31.5&28.9\\
+		czas wykonania [s] &0.002&0.021&0.002\\
+	\end{tabular}
+\end{table}
+\begin{table}[h]
+	\centering
+	\caption{Wpływ wyboru ekstraktora cech - własny zbiór danych, 20 słów kluczowych na klasę}
+	\begin{tabular}{l|l|l|l}
+		Ekstraktor& TF & TFIDF & Własny\\
+		\hline
+		skuteczność [\%]   &39.4&44.7&28.9\\
+		czas wykonania [s] &0.010&0.092&0.006\\
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Eksperyment 2. Wpływ parametru k na efektywność klasyfikacji} 
+\begin{table}[h]
+	\caption{Wpływ parametru k - zbiór danych Reuters, kategoria places}
+	\begin{tabular}{l|l|l|l|l|l|l}
+		Kategoria& \multicolumn{3}{|l}{ Reuters - places} 	& \multicolumn{3}{|l}{ Reuters - topics}\\
+		\hline
+		k& 3 & 7 & 9 & 3 & 7 & 9\\
+		\hline
+		skuteczność [\%]   &87.7&88.1&88.0&87.7&88.1&88.0\\
+		czas wykonania [s] &37.225&58.545&86.953&108.269&132.328&155.529\\
+	\end{tabular}
+\end{table}
+\begin{table}[h]
+	\centering
+	\caption{Wpływ parametru k - własny zbiór danych}
+	\begin{tabular}{l|l|l|l}
+		k& 3 & 7 & 9 \\
+		\hline
+		skuteczność [\%]   &39.4&39.4&31.5\\
+		czas wykonania [s] &0.003&0.003&0.003\\
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Eksperyment 3. Wpływ wyboru metryki/miary podobieńśtwa na efektywność klasyfikacji}
+\begin{table}[h]
+	\centering
+	\caption{Wpływ wyboru metryki/miary podobieńśtwa}
+	\begin{tabular}{l|l|l}
+		Metryka/Miara podobieństwa& skuteczność [\%] & czas wykonania [s]\\
+		\hline
+		Metryka euklidesowa&79.7&17.612\\
+		Metryka taksówkarska&79.7&18.713\\
+		Metryka Czebyszewa&85.6&97.608\\
+		Średnia arytmetyczna-minimum&79.7&77.398\\
+		Minimum-maximum&79.7&67.455\\
+		Własna miara podobieńśtwa&79.7&75.206\\
+	\end{tabular}
+\end{table}
+\subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
+
+\begin{table}[h]
+	\caption{Wpływ normalizacji na klasyfikację}
+	\begin{tabular}{l|l|l|l|l|l|l}
+		& \multicolumn{3}{|l}{ Brak normalizacji}	& \multicolumn{3}{|l}{ Normalizacja}\\
+		\hline
+		Ekstraktor& TF & TFIDF & Własny & TF & TFIDF & Własny\\
+		\hline
+		skuteczność [\%]   &86.3&86.3&7.04&86.5&86.5&84.6\\
+		czas wykonania [s] &4.685&71.999&8.397&5.152&71.650&9.043\\
+	\end{tabular}
+\end{table}
+\newpage
 
 \section{Dyskusja}
 {\color{blue}

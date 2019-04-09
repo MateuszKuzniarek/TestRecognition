@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.NumberStringConverter;
 import logic.metrics.AverageMinSimilarity;
+import logic.metrics.CustomSimilarity;
 import logic.metrics.MinMaxSimilarity;
 import logic.utils.CSVData;
 import logic.utils.CSVWriter;
@@ -146,6 +147,7 @@ public class FXMLController implements Initializable
         metricComboBox.getItems().add(new ChebyshevMetric());
         metricComboBox.getItems().add(new AverageMinSimilarity());
         metricComboBox.getItems().add(new MinMaxSimilarity());
+        metricComboBox.getItems().add(new CustomSimilarity());
         dataSetComboBox.getItems().add("REUTERS");
         dataSetComboBox.getItems().add("QUOTES");
     }    
