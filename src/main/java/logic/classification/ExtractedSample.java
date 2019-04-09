@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class TrainingExample
+public class ExtractedSample
 {
     private String label;
     private List<Double> features = new ArrayList<>();

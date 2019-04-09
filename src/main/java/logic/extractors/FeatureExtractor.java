@@ -1,7 +1,7 @@
 package logic.extractors;
 
+import logic.classification.ExtractedSample;
 import logic.classification.TextSample;
-import logic.classification.TrainingExample;
 import logic.features.Feature;
 
 import java.util.ArrayList;
@@ -13,15 +13,15 @@ public abstract class FeatureExtractor
 
     public abstract void initExtractor(List<String> keywords, int numberOfKeywordsPerLabel);
 
-    public TrainingExample extractFeatures(List<TextSample> allSamples, TextSample sample)
+    public ExtractedSample extractFeatures(List<TextSample> allSamples, TextSample sample)
     {
-        TrainingExample trainingExample = new TrainingExample();
-        trainingExample.setLabel(sample.getLabels().get(0));
+        ExtractedSample extractedSample = new ExtractedSample();
+        extractedSample.setLabel(sample.getLabels().get(0));
         for(Feature feature : features)
         {
-            trainingExample.getFeatures().add(feature.extractFeature(allSamples, sample));
+            extractedSample.getFeatures().add(feature.extractFeature(allSamples, sample));
         }
-        return trainingExample;
+        return extractedSample;
     }
 
 }

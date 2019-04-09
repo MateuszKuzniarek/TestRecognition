@@ -16,7 +16,7 @@ import java.util.Map;
 public class KNNClassification
 {
     private Normalizer normalizer;
-    private ArrayList<TrainingExample> trainingExamples;
+    private ArrayList<ExtractedSample> extractedSamples;
     private ArrayList<String> keywords;
     private ArrayList<TextSample> trainingTextSamples;
     private FeatureExtractor featureExtractor;
@@ -37,28 +37,28 @@ public class KNNClassification
     {
         normalizer = new Normalizer();
         featureExtractor.initExtractor(keywords, numberOfKeywordsPerLabel);
-        trainingExamples = new ArrayList<>();
+        extractedSamples = new ArrayList<>();
         for(TextSample sample : trainingTextSamples)
         {
-            trainingExamples.add(featureExtractor.extractFeatures(trainingTextSamples, sample));
+            extractedSamples.add(featureExtractor.extractFeatures(trainingTextSamples, sample));
         }
-        normalizer.initializeWages(trainingExamples);
-        for(int i=0; i<trainingExamples.size(); i++)
+        normalizer.initializeWages(extractedSamples);
+        for(int i = 0; i< extractedSamples.size(); i++)
         {
-            normalizer.normalize(trainingExamples.get(i));
+            normalizer.normalize(extractedSamples.get(i));
         }
     }
 
     public String classify(TextSample testSample)
     {
         String result = "";
-        TrainingExample testExample = featureExtractor.extractFeatures(trainingTextSamples, testSample);
+        ExtractedSample testExample = featureExtractor.extractFeatures(trainingTextSamples, testSample);
         normalizer.normalize(testExample);
-        trainingExamples.sort(Comparator.comparingDouble(a -> metric.getDistance(a.getFeatures(), testExample.getFeatures())));
+        extractedSamples.sort(Comparator.comparingDouble(a -> metric.getDistance(a.getFeatures(), testExample.getFeatures())));
         HashMap<String, Integer> answers = new HashMap<String, Integer>();
         for(int i=0; i<k; i++)
         {
-            String label = trainingExamples.get(i).getLabel();
+            String label = extractedSamples.get(i).getLabel();
             if(answers.containsKey(label)) answers.put(label, answers.get(label)+1);
             else answers.put(label, 1);
         }
