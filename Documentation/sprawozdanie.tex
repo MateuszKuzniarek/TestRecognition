@@ -1,6 +1,7 @@
 \documentclass{classrep}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage{float}
 \usepackage{graphicx}
 \graphicspath{ {./} }
 \usepackage{color}
@@ -36,7 +37,7 @@ Dla każdego słowa kluczowego obliczana jest jego częstotliwość przy pomocy 
 \begin{equation}
 tf(t,d) =  \frac{f_{t,d}}{|d|} \cite{TF_TF-IDF}
 \end{equation}
-gdzie \(f_{t,d}\) jest liczbą wsytąpień słowa \(t\) w tekście \(d\), a \(|d|\) jest liczbą wszystkich słów w tym tekście. Wartości funkcji \(tf(t,d)\) dla każdego słowa kluczowego stanową współrzędne wektora, reprezentującego dany dokument.
+gdzie \(f_{t,d}\) jest liczbą wsytąpień słowa \(t\) w tekście \(d\), a \(|d|\) jest liczbą wszystkich słów w tym tekście. Wartości funkcji \(tf(t,d)\) dla każdego słowa kluczowego stanową współrzędne wektora cech, reprezentującego dany dokument.
 
 \subsubsection{TF-IDF (term frequency–inverse document frequency)}
 Ten sposób ekstrakcji cech wykorzystuje TF(Term Frequency) i wzbogaca je o informację na temat tego, jak często dane słowo znajduje się w dokementach innych niż analizowany. Wartość TF-IDF można uzyskać przy pomocy wzoru: 
@@ -50,7 +51,7 @@ idf(t,D) = log\frac{|D|}{n} \cite{TF_TF-IDF}
 gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to liczba tekstów, w których przynajmniej raz znajduje się słowo \(t\).
 
 \subsubsection{Własna metoda ekstrakcji cech}
-Trzecim wykorzystanym sposobem była własna metoda ekstrakcji wektora cech. Składała się ona z następujących własności:
+Trzecim wykorzystanym sposobem była własna metoda ekstrakcji. Składała się ona z następujących cech:
 \begin{itemize}
 	\item Suma wartości TF dla grupy słów kluczowych (każda grupa dotyczy innej klasy)
 	\item Suma wartości podobieństw słów kluczowych do analizowanego tekstu przy użyciu miary trigramów. (każda suma dotyczy słów kluczowych związanych z daną klasą) \cite{ANiewSkrypt}
@@ -59,6 +60,7 @@ Trzecim wykorzystanym sposobem była własna metoda ekstrakcji wektora cech. Sk�
 	\item Średnia długość słowa wśród 4 najdłuższych słów
 \end{itemize}
 
+\subsection{Miara trigramów}
 Wartość podobieństwa tekstów przy użyciu miary trigramów obliczyć można z następującego wzoru:
 \begin{equation}
 sim_{n}(s_{1}, s_{2}) = \frac{1}{N-2}\sum_{i=1}^{N-2}h(i)
@@ -87,7 +89,7 @@ Metryka Czebyszewa:
 \begin{equation}
 d(p,q) = max_{i}(p_{i} -q_{i}) \cite{ChebyshevWiki}
 \end{equation}
-gdzie \(n\) jest długością wektorów \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz \(q = [q_{1}, q_{2}, ..., q_{n}]\) są wektorami, między którymi liczona jest odległość. 
+gdzie \(n\) jest długością wektorów, \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz \(q = [q_{1}, q_{2}, ..., q_{n}]\) są wektorami, między którymi liczona jest odległość. 
 
 Oprócz tego zaimplementowano następujące miary podobieństwa: \newline
 Minimum-maximum
@@ -103,7 +105,7 @@ Własna propozycja miary podobieństwa
 r_{wm}(p,q) = (r_{mm}(p,q))^{2}
 \end{equation}
 
-Powyższych metryk oraz miar podobieństw użyto do znalezieniu k najbliższych analizowanemu tekstowi próbek. Na ich podstawie tekst mógł zostać zaklasyfikowany do najbardziej licznej wśród wybranych sąsiadów z klas. W przypadku wielu jednakowo-licznych klas, wybierano tę, której próbka znajdowała się najbliżej analizowanego tekstu.
+Powyższych metryk oraz miar podobieństw użyto do znalezieniu k najbliższych analizowanemu tekstowi próbek. Na ich podstawie tekst mógł zostać zaklasyfikowany do najbardziej licznej wśród wybranych sąsiadów z klas. W przypadku wielu jednakowo-licznych klas, wybierano tę, której próbka znajdowała się najbliżej analizowanego wektora.
 
 \section{Opis implementacji}
 
@@ -130,7 +132,7 @@ Opis poszczególnych klas w ramach pakietu:
 		\item TextSample.java - klasa reprezentująca próbkę tekstu, będąca reprezentacją badanych artykułów, zawiera informacje o etykiecie, i słowach zawartych w artykule;
 		\item ExtractedSample.java - klasa reprezentująca wyekstrahowaną próbkę tekstu, na którą składa się jedynie etykieta oraz wektor cech tej próbki;
 		\item Normalizer.java - klasa zdolna normalizować cechy wyekstrahowanej próbki do przedziału [0,1], w oparciu o cechy zbioru obiektów(tu zbioru treningowego);
-		\item KNNClasification.java - reprezentacja sieci knn, do najważniejszych metod tej klasy należą metoda \textit{train()}, która bazując na zbiorze testowym, tworzy strukturę sieci, oraz metoda \textit{classify()} dokonująca klasyfikacji obiektów zbioru testowego w oparciu o utworzoną wcześniej strukturę;
+		\item KNNClasification.java - reprezentacja sieci knn, do najważniejszych metod tej klasy należą metoda \textit{train()}, która bazując na zbiorze treningowym, tworzy strukturę sieci, oraz metoda \textit{classify()} dokonująca klasyfikacji obiektów zbioru testowego w oparciu o utworzoną wcześniej strukturę;
 	\end{itemize}
 	\item logic.extraction
 	\begin{itemize}
@@ -144,12 +146,12 @@ Opis poszczególnych klas w ramach pakietu:
 		\item Feature.java - klasa abstrakcyjna cechy;
 		\item TermFrequency.java - klasa cechy TF;
 		\item TermFrequencyInverseDocumentFrequency.java - klasa cechy TF-IDF; 
-		\item CombinedTermFrequency.java - klasa cechy będącej sumą cech TF dla każdego słowa kluczowego;
+		\item CombinedTermFrequency.java - klasa cechy będącej sumą cech TF dla każdego słowa kluczowego z podanej listy.
 		\item NGram.java - klasa cechy Ngramów;
-		\item CombinedNGram.java - klasa cechy będącej sumą cech NGramów dla każdego słowa kluczowego;
+		\item CombinedNGram.java - klasa cechy będącej sumą cech Ngramów dla każdego słowa kluczowego z podanej listy;
 		\item Length.java - klasa cechy długości tekstu;
-		\item AverageNumber.java - klasa cechy średniej z liczb występujących w tekście;
-		\item LongestWordsAverageLength.java - klasa cechy średniej długości najdłuższych słów występujących w tekście;
+		\item AverageNumber.java - klasa cechy średniej arytmetycznej z liczb występujących w tekście;
+		\item LongestWordsAverageLength.java - klasa cechy średniej arytmetycznej długości kilku najdłuższych słów występujących w tekście;
 	\end{itemize}
 	\item logic.metrics
 	\begin{itemize}
@@ -164,7 +166,7 @@ Opis poszczególnych klas w ramach pakietu:
 	\end{itemize}
 	\item logic.utils
 	\begin{itemize}
-		\item SgmToXmlConverter.java - klasa konwertera zamieniająca plik sqm, w którym zostały dostarczone dane na plik, xml z którego są potem wczytywane do programu;
+		\item SgmToXmlConverter.java - klasa konwertera zamieniająca plik sgm, w którym zostały dostarczone dane na plik, xml z którego są potem wczytywane do programu;
 		\item ExampleLoader.java - klasa wczytująca teksty z pliku xml i przeprowadzająca wstępną obróbkę tekstu oraz stemizację, celem usprawnienia późniejszego procesu klasyfikacji;
 		\item CSVData.java - klasa reprezentująca dane statystyczne zapisywane później do pliku csv;
 		\item CSVWriter.java - klasa zapisująca dane powstałe w wyniku klasyfikacji do pliku csv;
@@ -173,12 +175,13 @@ Opis poszczególnych klas w ramach pakietu:
 
 Podnadto w projekcie znajdują się pliki Scene.fxml oraz Styles.css które opisują elementy graficznego interfejsu użytkownika.
 
-{\color{blue} UML!!!!!!!!!!!!!!!!!!}
-
-\begin{figure}[h]
-	\advance\leftskip-4cm
+\begin{center}
+	\begin{figure}[H]
+		\advance\leftskip-3.65cm
 		\includegraphics[width=\paperwidth]{ksr_uml}
-\end{figure}
+	\end{figure}
+\end{center}
+
 
 \section{Materiały i metody}
 Przed rozpoczęciem klasyfikacji analizowane teksty zostały odpowiednio przygotowane do wykorzystania. Treść została podzielona na pojedyncze słowa, które następnie zostały poddane procesowi stemmingu, który to polega na pozbyciu się końcówek fleksyjnych wyrazu. Z tekstu usunięto wszystkie znaki interpunkcyjne, a wielkie litery zamieniono na małe. Następnie, przy pomocy odpowiednio przygotowanej stop-listy, pozbyto się niepożądanych słów, które nie niosły ze sobą większego znaczenia dla procesu klasyfikacji.
@@ -198,7 +201,7 @@ Do zbadania wpływu ekstraktora cech na klasyfikację wybrano metrykę euklideso
 \subsection{Eksperyment 2. Wpływ parametru k na efektywność klasyfikacji}
 Aby zbadać wpływ parametru k, przeprowadzono eksperyment przy użyciu ekstraktora cech Term Frequency, metryki euklidesowej oraz 3 słów kluczowych na każdą klasę. Następnie porównano wyniki dla odmiennych wartości parametru k. Eksperyment powtórzono dla różnych zbiorów danych i kategorii klasyfikacji. 
 \subsection{Eksperyment 3. Wpływ wyboru metryki/miary podobieńśtwa na efektywność klasyfikacji}
-Podczas tego eksperymentu wykorzystano zbiór artykułów agencji Reuters, 3 słowa kluczowe na klasę, ekstraktor TF oraz parametr k o wartości 3. Klasyfikację przeprowadzono wględem kategorii topics.
+Podczas tego eksperymentu wykorzystano zbiór artykułów agencji Reuters, 3 słowa kluczowe na klasę, ekstraktor TF oraz parametr k o wartości 3. Klasyfikację przeprowadzono wględem kategorii topics. Eksperyment powtórzono dla różnych metryk i miar podobieństwa.
 \subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
 Ten eksperyment przeprowadzono na podstawie zbioru danych z agencji Reuters. Klasyfikacja odbyła się względem wartości kategorii topics. Użyto 3 słów kluczowych na klasę, metryki euklidesowej oraz współczynnika k równego 7. Badanie powtórzono dla różnych ekstraktorów cech w wariancie z normalizacją i bez niej.
 \newpage
@@ -320,6 +323,8 @@ Obserwując wyniki zawarte w tabeli 8. można zauważyć, że proces normalizacj
 \end{itemize}
 
 \begin{thebibliography}{0}
+\bibitem{TF_TF-IDF}
+Bernardi R., \textit{Term Frequency and Inverted Document Frequency}
 
 \bibitem{JavaFX} 
 https://docs.oracle.com/javase/8/javafx/api/toc.htm
@@ -333,8 +338,7 @@ https://www.nltk.org/\_modules/nltk/stem/snowball.html
 \bibitem{ANiewSkrypt}
 Niewiadomski A., \textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}, 21 września 2009 
 
-\bibitem{TF_TF-IDF}
-Bernardi R., \textit{Term Frequency and Inverted Document Frequency}
+
 
 \bibitem{MLWiki}
 http://mlwiki.org/index.php/Feature\_Normalization
