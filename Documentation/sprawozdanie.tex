@@ -32,18 +32,18 @@ W celu szybkiego i efektywnego porównywania tekstów przydatna okazuje się ich
 \subsubsection{TF (Term Frequency)}
 Dla każdego słowa kluczowego obliczana jest jego częstotliwość przy pomocy wzoru: 
 \begin{equation}
-tf(t,d) =  \frac{f_{t,d}}{|d|}
+tf(t,d) =  \frac{f_{t,d}}{|d|} \cite{TF_TF-IDF}
 \end{equation}
 gdzie \(f_{t,d}\) jest liczbą wsytąpień słowa \(t\) w tekście \(d\), a \(|d|\) jest liczbą wszystkich słów w tym tekście. Wartości funkcji \(tf(t,d)\) dla każdego słowa kluczowego stanową współrzędne wektora, reprezentującego dany dokument.
 
 \subsubsection{TF-IDF (term frequency–inverse document frequency)}
 Ten sposób ekstrakcji cech wykorzystuje TF(Term Frequency) i wzbogaca je o informację na temat tego, jak często dane słowo znajduje się w dokementach innych niż analizowany. Wartość TF-IDF można uzyskać przy pomocy wzoru: 
 \begin{equation}
-tfidf(t,d,D) = tf(t,d) \cdot idf(t,D)
+tfidf(t,d,D) = tf(t,d) \cdot idf(t,D) \cite{TF_TF-IDF}
 \end{equation}
 gdzie \(tf(t,d)\), jest wartością TF obliczoną przy pomocy woru 1., a \(idf(t,D)\) wyraża się wzorem
 \begin{equation}
-idf(t,D) = log\frac{|D|}{n}
+idf(t,D) = log\frac{|D|}{n} \cite{TF_TF-IDF}
 \end{equation}
 gdzie \(|D|\) to liczba wszystkich tekstów w analizowanym zbiorze, a \(n\) to liczba tekstów, w których przynajmniej raz znajduje się słowo \(t\).
 
@@ -61,11 +61,11 @@ Trzecim wykorzystanym sposobem była własna metoda ekstrakcji wektora cech. Sk�
 \subsection{Normalizacja}
 Otrzymane na powyższe sposoby cechy zostały następnie znormalizowane przy użyciu wzoru:
 \begin{equation}
-x' = \frac{x-x_{min}}{x_{max}-x_{min}}
+x' = \frac{x-x_{min}}{x_{max}-x_{min}} \cite{MLWiki}
 \end{equation}
 
 \subsection{Algorytm KNN}
-Do klasyfikacji tekstów wykorzystany został algorytm KNN(k-nearest neighbors). Pozwala on na przypisanie danej próbce klasy na podstawie tego, jak zaklsyfikowani są jej najbliżsi sąsiedzi. Bliskość dwóch próbek zdefiniowana jest za pomocą odpowiedniej metryki lub miary podobieństwa. 
+Do klasyfikacji tekstów wykorzystany został algorytm KNN(k-nearest neighbors). Pozwala on na przypisanie danej próbce klasy na podstawie tego, jak zaklsyfikowani są jej najbliżsi sąsiedzi. Bliskość dwóch próbek zdefiniowana jest za pomocą odpowiedniej metryki lub miary podobieństwa. \cite{KNNWiki}
 
 W ramach zadania zaimplementowano następujące metryki: \newline
 Metryka euklidesowa:
@@ -78,7 +78,7 @@ d(p,q) = \sum_{i=1}^{n} |p_{i} -q_{i}| \cite{ANiewSkrypt}
 \end{equation}
 Metryka Czebyszewa:
 \begin{equation}
-d(p,q) = max_{i}(p_{i} -q_{i})
+d(p,q) = max_{i}(p_{i} -q_{i}) \cite{ChebyshevWiki}
 \end{equation}
 gdzie \(n\) jest długością wektorów \(p = [p_{1}, p_{2}, ..., p_{n}]\) oraz \(q = [q_{1}, q_{2}, ..., q_{n}]\) są wektorami, między którymi liczona jest odległość. 
 
@@ -100,9 +100,15 @@ Powyższych metryk oraz miar podobieństw użyto do znalezieniu k najbliższych 
 
 \section{Opis implementacji}
 
-W celu realizacji zadania została napisana aplikacja okienkowa w języku Java. Warstwa prezentacji została z kolei przygotowana w technologii JavaFx\cite{JavaFX}.
+W celu realizacji zadania została napisana aplikacja okienkowa w języku Java, natomiast graficzny interfejs użytkownika został wykonany w technologii JavaFX.
+W projekcie skorzystano z natępujących bibliotek:
+\begin{itemize}
+	\item commons-io - bibliteka umożliwiająca deserializację plików xml; \cite{commons-io}
+	\item javafx-fxml - biblioteka używana w warstwię prezentacji do reprezentacji graficznego interfejsu użytkownika; \cite{JavaFX}
+	\item snowball-stemmer - biblioteka udostępniająca stemmer; \cite{Stemmer}
+\end{itemize}
 
-Projekt podzielono na dwa główne pakiety, przechowujący klasy warstwy prezentacji pakiet \textit{gui}, oraz pakiet \textit{logic}, w którym jest zawarta cała logika aplikacji. Na pakiet \textit{logic} składają się liczne podpakiety, które wydzielają poszczególne funkcjonalności aplikacji jeszcze bardziej. Są to: pakiet \textit{classification}, którego klasy realizują zagadnienie klasyfikacji obiektów tekstowych; pakiet \textit{extractors}, który zawiera w sobie ekstraktory cech; pakiet \textit{features} zawierający w sobie klasy, reprezentujące cechy obiektów; pakiet \textit{metrics}, którego klasy realizują poszczególne metryki; oraz pakiet \textit{utils} zawierający w sobie wszystkie klasy wspomagające działanie programu, niezwiązane bezpośrednio z idęą działania sieci knn.
+Projekt podzielono na dwa główne pakiety, przechowujący klasy warstwy prezentacji pakiet \textit{gui}, oraz pakiet \textit{logic}, w którym jest zawarta cała logika aplikacji. Na pakiet \textit{logic} składają się liczne podpakiety, które wydzielają poszczególne funkcjonalności aplikacji jeszcze bardziej. Są to: pakiet \textit{classification}, którego klasy realizują zagadnienie klasyfikacji obiektów tekstowych; pakiet \textit{extractors}, który zawiera w sobie ekstraktory cech; pakiet \textit{features} zawierający w sobie klasy, reprezentujące cechy obiektów; pakiet \textit{metrics}, którego klasy realizują poszczególne metryki; oraz pakiet \textit{utils} zawierający w sobie wszystkie klasy wspomagające działanie programu, niezwiązane bezpośrednio z ideą działania sieci knn.
 
 Opis poszczególnych klas w ramach pakietu:
 
@@ -158,6 +164,8 @@ Opis poszczególnych klas w ramach pakietu:
 	\end{itemize}
 \end{itemize}
 
+Podnadto w projekcie znajdują się pliki Scene.fxml oraz Styles.css które opisują elementy graficznego interfejsu użytkownika.
+
 {\color{blue} UML!!!!!!!!!!!!!!!!!!}
 
 \section{Materiały i metody}
@@ -166,7 +174,7 @@ We wszystkich, opisanych poniżej eksperymentach słowa kluczowe zostały wyznac
 Do eksperymentów użyto dwóch zbiorów danych. Własnoręcznie opracowany spis cytatów znanych pisarzy oraz dostępny pod \href{http://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection}{tym adresem} zbiór artykułów opublikowanych przez agencję prasową Reuters w 1987 r. W przypadku tego drugiego, dokonano klasyfikacji z uwagi na dwie kategorie.
 \begin{itemize}
 	\item places - Nazwa państwa, którego dotyczy artykuł. Podczas badań brano pod uwagę następujące wartości tej etykiety: west-germany, usa, france, uk, canada, japan.
-	\item topics - tematyka artykułu, przy badaniach wykorzystywano próbki o wartościach: earn, acq lub trade w tej kategorii.
+	\item topics - Tematyka artykułu, przy badaniach wykorzystywano próbki o wartościach: earn, acq lub trade w tej kategorii.
 \end{itemize}
 W obu przypadakch pominięto artykuły, które nie zawierały informacji o danej kategorii lub klasyfikowały artykuł do dwóch lub więcej klas jednocześnie.
 
@@ -304,8 +312,26 @@ Obserwując wyniki zawarte w tabeli 8. można zauważyć, że proces normalizacj
 \bibitem{JavaFX} 
 https://docs.oracle.com/javase/8/javafx/api/toc.htm
 
+\bibitem{commons-io}
+https://commons.apache.org/proper/commons-io/javadocs/api-2.5/index.html
+
+\bibitem{Stemmer}
+https://www.nltk.org/_modules/nltk/stem/snowball.html
+
 \bibitem{ANiewSkrypt}
-A. Niewiadomski, \textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}, 21 września 2009 
+Niewiadomski A., \textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}, 21 września 2009 
+
+\bibitem{TF_TF-IDF}
+Bernardi R., \textit{Term Frequency and Inverted Document Frequency}
+
+\bibitem{MLWiki}
+http://mlwiki.org/index.php/Feature_Normalization
+
+\bibitem{KNNWiki}
+Altman N. S., \textit{An introduction to kernel and nearest-neighbor nonparametric regression}, 1992
+
+\bibitem{ChebyshevWiki}
+James M. Abello, Panos M. Pardalos, Mauricio G. C. Resende \textit{Handbook of Massive Data Sets. Springer}, 2002
 
 \end{thebibliography}
 \end{document}
