@@ -108,11 +108,11 @@ public class FXMLController implements Initializable
     private void testButtonAction(ActionEvent event)
     {
         System.out.println("Processing...");
-        long startTime = System.nanoTime();
         knn.setK(Integer.parseInt(kCoefficientTextField.getText()));
         knn.setFeatureExtractor(extractorComboBox.getValue());
         knn.setMetric(metricComboBox.getValue());
-        knn.train(Integer.parseInt(numberOfKeywordsTextField.getText()));
+        knn.train();
+        long startTime = System.nanoTime();
         int correctAnswers = 0;
         for(TextSample sample : testSamples)
         {

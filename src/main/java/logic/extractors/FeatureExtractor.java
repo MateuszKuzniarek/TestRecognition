@@ -3,15 +3,17 @@ package logic.extractors;
 import logic.classification.ExtractedSample;
 import logic.classification.TextSample;
 import logic.features.Feature;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public abstract class FeatureExtractor
 {
-    ArrayList<Feature> features = new ArrayList<>();
+    protected ArrayList<Feature> features = new ArrayList<>();
 
-    public abstract void initExtractor(List<String> keywords, int numberOfKeywordsPerLabel);
+    public abstract void initExtractor(List<String> keywords);
 
     public ExtractedSample extractFeatures(List<TextSample> allSamples, TextSample sample)
     {

@@ -16,6 +16,7 @@ import java.util.Map;
 public class KNNClassification
 {
     private Normalizer normalizer;
+    private boolean normalizationEnabled = true;
     private ArrayList<ExtractedSample> extractedSamples;
     private ArrayList<String> keywords;
     private ArrayList<TextSample> trainingTextSamples;
@@ -33,19 +34,22 @@ public class KNNClassification
         System.out.println(keywords);
     }
 
-    public void train(int numberOfKeywordsPerLabel)
+    public void train()
     {
         normalizer = new Normalizer();
-        featureExtractor.initExtractor(keywords, numberOfKeywordsPerLabel);
+        featureExtractor.initExtractor(keywords);
         extractedSamples = new ArrayList<>();
         for(TextSample sample : trainingTextSamples)
         {
             extractedSamples.add(featureExtractor.extractFeatures(trainingTextSamples, sample));
         }
-        normalizer.initializeWages(extractedSamples);
-        for(int i = 0; i< extractedSamples.size(); i++)
+        if(isNormalizationEnabled())
         {
-            normalizer.normalize(extractedSamples.get(i));
+            normalizer.initializeWages(extractedSamples);
+            for(int i = 0; i< extractedSamples.size(); i++)
+            {
+                normalizer.normalize(extractedSamples.get(i));
+            }
         }
     }
 
@@ -53,7 +57,7 @@ public class KNNClassification
     {
         String result = "";
         ExtractedSample testExample = featureExtractor.extractFeatures(trainingTextSamples, testSample);
-        normalizer.normalize(testExample);
+        if(isNormalizationEnabled()) normalizer.normalize(testExample);
         extractedSamples.sort(Comparator.comparingDouble(a -> metric.getDistance(a.getFeatures(), testExample.getFeatures())));
         HashMap<String, Integer> answers = new HashMap<String, Integer>();
         for(int i=0; i<k; i++)
@@ -105,7 +109,7 @@ public class KNNClassification
         return false;
     }
 
-    public void findKeywords(List<TextSample> samples, int n)
+    public void findKeywordsPerClass(List<TextSample> samples, int n)
     {
         ArrayList<String> labels = getLabels(samples);
         HashMap<String, ArrayList<String>> wordsForLabel = getWordsForLabel(samples, labels);
@@ -122,5 +126,22 @@ public class KNNClassification
             Collections.sort(words, Comparator.comparingInt(Pair::getValue));
             for(int i=0; i<n; i++) keywords.add(words.get(words.size()-1-i).getKey());
         }
+    }
+
+    public void findKeywords(List<TextSample> samples, int n)
+    {
+        ArrayList<Pair<String, Integer>> words = new ArrayList<>();
+        for(TextSample sample : samples)
+        {
+            for(String word : sample.getWords())
+            {
+                if(!checkForWord(word, words))
+                {
+                    words.add(new Pair(word, Collections.frequency(words, word)));
+                }
+            }
+        }
+        Collections.sort(words, Comparator.comparingInt(Pair::getValue));
+        for(int i=0; i<n; i++) keywords.add(words.get(words.size()-1-i).getKey());
     }
 }
