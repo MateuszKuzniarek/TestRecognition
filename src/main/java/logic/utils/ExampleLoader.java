@@ -129,7 +129,7 @@ public class ExampleLoader
             "u", "v", "w", "x", "y", "z","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
             "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
 
-    private static List<String> punctuationMarks = Arrays.asList(",", ".", "?", "!", "'", "\"", "/", "\\", "", "-");
+    private static List<String> punctuationMarks = Arrays.asList(",", ">", "<", ".", "?", "!", "'", "\"", "/", "\\", "", "-");
     private static List<String> allowedPlaces = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
     private static List<String> allowedTopics = Arrays.asList("earn", "acq", "trade");
 

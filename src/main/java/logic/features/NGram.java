@@ -15,16 +15,27 @@ public class NGram extends Feature
         this.keyword = keyword;
     }
 
-    @Override
-    public double extractFeature(List<TextSample> allSamples, TextSample sample)
+    public static double getNumberOfSubseries(String keyword, int nCoefficient, TextSample sample)
     {
         int nGramLimit = keyword.length()-nCoefficient;
         double numberOfPresentSubSeries = 0;
         for(int i=0; i<nGramLimit; i++)
         {
             String subSeries = keyword.substring(i, i+nCoefficient);
-            if(sample.getWords().contains(subSeries)) numberOfPresentSubSeries++;
+            boolean isSubseriesFound = false;
+            for(int j=0; j<sample.getWords().size() && !isSubseriesFound; j++)
+            {
+                if(sample.getWords().get(j).contains(subSeries)) isSubseriesFound = true;
+            }
+            if(isSubseriesFound) numberOfPresentSubSeries++;
         }
-        return numberOfPresentSubSeries/(nGramLimit+1);
+        return numberOfPresentSubSeries;
+    }
+
+    @Override
+    public double extractFeature(List<TextSample> allSamples, TextSample sample)
+    {
+        double numberOfPresentSubSeries = NGram.getNumberOfSubseries(keyword, nCoefficient, sample);
+        return numberOfPresentSubSeries/(keyword.length()-nCoefficient+1);
     }
 }

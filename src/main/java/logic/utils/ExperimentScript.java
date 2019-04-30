@@ -28,7 +28,7 @@ public class ExperimentScript
 {
     public static void start() throws ParserConfigurationException, SAXException, IOException
     {
-        experiment1();
+        //experiment1();
         //experiment2("PLACES");
         //experiment2("TOPICS");
         //experiment2("QUOTES");
@@ -36,16 +36,17 @@ public class ExperimentScript
         //experiment4("TOPICS");
         //experiment4("QUOTES");
         //experiment3();
+        experiment5();
     }
 
     public static void experiment1() throws ParserConfigurationException, SAXException, IOException {
         CustomExtractor customExtractor = new CustomExtractor();
         System.out.println("Processing...");
-        List<TextSample> examples = ExampleLoader.loadDataSet("REUTERS", "TOPICS");
+        List<TextSample> examples = ExampleLoader.loadDataSet("REUTERS", "PLACES");
         //if(categoryComboBox.getValue().equals("PLACES"))
-        //examples = ExampleLoader.filterPlaces(examples);
+        examples = ExampleLoader.filterPlaces(examples);
         //else if(categoryComboBox.getValue().equals("TOPICS"))
-        examples = ExampleLoader.filterTopics(examples);
+        //examples = ExampleLoader.filterTopics(examples);
         //System.out.println(examples2.size());
         //List<TextSample> examples = examples2.subList(0, 2000);
         int count = examples.size();
@@ -65,11 +66,9 @@ public class ExperimentScript
         for(Feature feature : originalFeatures)
         {
             double averageElapsedTime = 0;
-            double averageTrainingElapsedTime = 0;
             double result = 0;
+            CSVWriter.appendStringToFile("removed" + feature.toString(), "result.csv");
             customExtractor.getFeatures().remove(feature);
-            System.out.println(customExtractor.getFeatures().size());
-            CSVWriter.appendStringToFile("removed " + feature.toString(), "result.csv");
             for(int i=0; i<5; i++)
             {
                 System.out.println("Processing...");
@@ -88,14 +87,15 @@ public class ExperimentScript
                 result = (double) correctAnswers / testSamples.size();
                 long endTime = System.nanoTime();
                 averageElapsedTime += (endTime - startTime) / 1000000000f;
+                System.out.println(averageElapsedTime);
             }
             averageElapsedTime /= 5;
-            customExtractor.setFeatures(new ArrayList<>());
-            customExtractor.getFeatures().addAll(originalFeatures);
             DecimalFormat format = new DecimalFormat("#.###");
             format.setRoundingMode(RoundingMode.HALF_UP);
             CSVWriter.appendDataToFile(new CSVData(result, averageElapsedTime), "result.csv");
             System.out.println(result);
+            customExtractor.setFeatures(new ArrayList<>());
+            customExtractor.getFeatures().addAll(originalFeatures);
             //resultLabel.setText(format.format(result * 100) + "%");
             //timeLabel.setText(format.format(elapsedTime) + "s");
             System.out.println("Done!");
@@ -119,7 +119,10 @@ public class ExperimentScript
             {
                 System.out.println("Processing...");
                 knn.setK(k);
-                knn.setFeatureExtractor(new CustomExtractor());
+                CustomExtractor customExtractor = new CustomExtractor();
+                customExtractor.initExtractor(knn.getKeywords());
+                knn.setFeatureExtractor(customExtractor);
+                //System.out.println(knn.getFeatureExtractor().getFeatures());
                 knn.setMetric(new EuclideanMetric());
                 knn.train();
                 long startTime = System.nanoTime();
@@ -180,7 +183,9 @@ public class ExperimentScript
             {
                 System.out.println("Processing...");
                 knn.setK(3);
-                knn.setFeatureExtractor(new CustomExtractor());
+                CustomExtractor customExtractor = new CustomExtractor();
+                customExtractor.initExtractor(knn.getKeywords());
+                knn.setFeatureExtractor(customExtractor);
                 knn.setMetric(metric);
                 knn.train();
                 long startTime = System.nanoTime();
@@ -222,7 +227,9 @@ public class ExperimentScript
             {
                 System.out.println("Processing...");
                 knn.setK(5);
-                knn.setFeatureExtractor(new CustomExtractor());
+                CustomExtractor customExtractor = new CustomExtractor();
+                customExtractor.initExtractor(knn.getKeywords());
+                knn.setFeatureExtractor(customExtractor);
                 knn.setMetric(new EuclideanMetric());
                 knn.train();
                 long startTime = System.nanoTime();
@@ -276,5 +283,62 @@ public class ExperimentScript
         //testButton.setDisable(false);
         System.out.println("Done!");
         return knn;
+    }
+
+    public static void experiment5() throws ParserConfigurationException, SAXException, IOException {
+
+        List<Double> proportions = Arrays.asList(0.3,0.5,0.7);
+        System.out.println("Processing...");
+        List<TextSample> examples = ExampleLoader.loadDataSet("QUOTES", "AUTHOR");
+        for(Double proportion : proportions)
+        {
+
+            //examples = ExampleLoader.filterPlaces(examples);
+            int count = examples.size();
+            int trainingCount = (int) (proportion*count);
+            List<TextSample> trainingSamples = examples.subList(0, trainingCount);
+            List<TextSample> testSamples = examples.subList(trainingCount, count);
+            System.out.println(trainingSamples.size());
+            System.out.println(testSamples.size());
+            KNNClassification knn = new KNNClassification();
+            knn.init(trainingSamples, 3);
+            //testButton.setDisable(false);
+            System.out.println("Done!");
+
+            CSVWriter.appendStringToFile("EKSPERYMENT 5 - proporcje - reuters, places, 3 slowa kluczowe, k=5", "result.csv");
+            double averageElapsedTime = 0;
+            double result = 0;
+            CSVWriter.appendStringToFile(proportion.toString(), "result.csv");
+            for(int i=0; i<5; i++)
+            {
+                System.out.println("Processing...");
+                knn.setK(5);
+                CustomExtractor customExtractor = new CustomExtractor();
+                customExtractor.initExtractor(knn.getKeywords());
+                knn.setFeatureExtractor(customExtractor);
+                knn.setMetric(new EuclideanMetric());
+                knn.train();
+                long startTime = System.nanoTime();
+                int correctAnswers = 0;
+                for (TextSample sample : testSamples) {
+                    String answer = knn.classify(sample);
+                    //System.out.println(answer + " " + sample.getLabels().get(0));
+                    if (answer.equals(sample.getLabels().get(0)))
+                        correctAnswers++;
+                }
+                result = (double) correctAnswers / testSamples.size();
+                long endTime = System.nanoTime();
+                averageElapsedTime += (endTime - startTime) / 1000000000f;
+                //System.out.println(averageElapsedTime);
+            }
+            averageElapsedTime /= 5;
+            DecimalFormat format = new DecimalFormat("#.###");
+            format.setRoundingMode(RoundingMode.HALF_UP);
+            CSVWriter.appendDataToFile(new CSVData(result, averageElapsedTime), "result.csv");
+            System.out.println(result);
+            //resultLabel.setText(format.format(result * 100) + "%");
+            //timeLabel.setText(format.format(elapsedTime) + "s");
+            System.out.println("Done!");
+        }
     }
 }

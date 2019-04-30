@@ -38,7 +38,8 @@ Słowa te zostały wyznaczone przy pomocy przefiltrowanej listy słów, spośró
 Używany do klasyfikacji wektor składał się z następujących cech:
 \begin{itemize}
 	\item Wartość TF dla każdego ze słów kluczowych.
-	\item Suma wartości podobieństw słów kluczowych do analizowanego tekstu przy użyciu miary trigramów.
+	\item Wartośc podobieństwa każdego ze słóww kluczowych do analizowanego tekstu przy użyciu miary trigramów.
+	\item Wartośc podobieństwa każdego ze słóww kluczowych do analizowanego tekstu przy użyciu uogólnionej miary n-gramów.
 	\item Długość tekstu
 	\item Średnia z występujących w tekście liczb
 	\item Średnia długość słowa wśród 4 najdłuższych słów
@@ -70,6 +71,13 @@ Wartość podobieństwa tekstów przy użyciu miary trigramów obliczyć można 
 sim_{n}(s_{1}, s_{2}) = \frac{1}{N-2}\sum_{i=1}^{N-2}h(i)
 \end{equation}
  gdzie \(h(i) = 1\) jeśli 3-elementowy podciąg zaczynający się od i-tej pozycji występuje przynajmniej raz. W przeciwnym wypadku \(h(i) = 0\)
+ 
+ \subsection{Uogólniona miara n-gramów \cite{ANiewSkrypt}} 
+ Uogólniona miara n-gramów, w odróżnieniu od zwykłej miary n-gramów opiera się na podciągach różnych długości. Można ją obliczyć w następujący sposób.
+ \begin{equation}
+ sim_{n}(s_{1}, s_{2}) = \frac{2}{N^2+N}\sum_{i=1}^{N(s_1)}\sum_{j=j}^{N(s_1)-i+1} h(i,j)
+ \end{equation}
+ gdzie \(h(i,j) = 1\) jeśli i-elementowy podciąg zaczynający się od j-tej pozycji występuje przynajmniej raz. W przeciwnym wypadku \(h(i) = 0\)
 
 \subsection{Normalizacja \cite{MLWiki}}
 Otrzymane na powyższe sposoby cechy zostały następnie znormalizowane przy użyciu wzoru:
@@ -140,16 +148,20 @@ Opis poszczególnych klas w ramach pakietu:
 	\end{itemize}
 	\item logic.extraction
 	\begin{itemize}
-		\item FeatureExtractor.java - klasa abstrakcyjna ekstraktora cech;
+		\item FeatureExtractor.java - klasa abstrakcyjna reprezentująca wektor cech;
+		\iffalse
 		\item TFExtractor.java - klasa ekstraktora cechy TF;
 		\item TFIDFExtractor.java - klasa ekstraktora cech TF-IDF;
-		\item CustomExtractor.java - klasa autorskiego ekstraktora cech;
+		\fi
+		\item CustomExtractor.java - klasa opracowanego na potrzeby zadania wektora cech;
 	\end{itemize}
 	\item logic.features
 	\begin{itemize}
 		\item Feature.java - klasa abstrakcyjna cechy;
 		\item TermFrequency.java - klasa cechy TF;
+		\iffalse
 		\item TermFrequencyInverseDocumentFrequency.java - klasa cechy TF-IDF; 
+		\fi
 		\item CombinedTermFrequency.java - klasa cechy będącej sumą cech TF dla każdego słowa kluczowego z podanej listy.
 		\item NGram.java - klasa cechy Ngramów;
 		\item CombinedNGram.java - klasa cechy będącej sumą cech Ngramów dla każdego słowa kluczowego z podanej listy;
@@ -205,6 +217,8 @@ Aby zbadać wpływ parametru k, przeprowadzono eksperyment przy użyciu metryki 
 Podczas tego eksperymentu wykorzystano zbiór artykułów agencji Reuters, 3 słowa kluczowe oraz parametr k o wartości 3. Klasyfikację przeprowadzono wględem kategorii places. Eksperyment powtórzono dla różnych metryk i miar podobieństwa.
 \subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
 W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz współczynnika k równego 5. Badanie powtórzono w wariancie z normalizacją oraz bez niej dla różnych zbiorów danych i kategorii klasyfikacji.
+\subsection{Eksperyment 5. Wpływ proporcji danych testowych i treningowych na klasyfikację}
+W eksperymencie użyto metryki euklidesowej, 3 słów kluczowych oraz współczynnika k równego 5. Badanie powtórzono dla różnych proporcji danych testowych i treningowych. Eksperyment przeprowadzono dla różnych zbiorów danych i kategorii klasyfikacji.
 
 \newpage
 \section{Wyniki}
@@ -214,13 +228,18 @@ W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz wspó�
 	\begin{tabular}{l|l|l}
 		Cecha, o którą pomniejszony został wektor cech& skuteczność [\%]& czas wykonania [s]\\
 		\hline
-		Średnia liczba &77.737&72.404\\
-		Długość tekstu &77.664&68.804\\
-		Średnia długośc najdłuższych słów &77.628&67.814\\
-		Suma mair n-gramów &77.701&68.846\\
-		TF dla pierwszego słowa kluczowego &77.701&70.866\\
-		TF dla drugiego słowa kluczowego &77.701&70.035\\
-		TF dla trzeciego słowa kluczowego &77.701&64.091\\
+		Średnia liczba &78.191&140.316\\
+		Długość tekstu &78.264&145.004\\
+		Średnia długośc najdłuższych słów &78.191&150.325\\
+		TF dla pierwszego słowa kluczowego &78.209&152.853\\
+		Trigram dla pierwszego słowa kluczowego &78.209&135.604\\
+		Uogólniony n-gram dla pierwszego słowa kluczowego &78.227&137.899\\
+		TF dla drugiego słowa kluczowego &78.209&141.811\\
+		Trigram dla drugiego słowa kluczowego &78.209&143.896\\
+		Uogólniony n-gram dla drugiego słowa kluczowego &78.318&172.715\\
+		TF dla trzeciego słowa kluczowego &78.209&138.575\\
+		Trigram dla trzeciego słowa kluczowego &78.209&134.953\\
+		Uogólniony n-gram dla trzeciego słowa kluczowego &78.209&126.521\\
 	\end{tabular}
 \end{table}
 
@@ -232,8 +251,8 @@ W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz wspó�
 		\hline
 		k& 3 & 7 & 9 & 3 & 7 & 9\\
 		\hline
-		skuteczność [\%]   &76.502&78.881&79.226&69.565&71.739& 72.038\\
-		czas wykonania [s] &28.775&30.395&29.334&5.381&5.574&5.466\\
+		skuteczność [\%]   &76.357&78.954&79.063&78.560&80.022& 80209\\
+		czas wykonania [s] &74.521&78.675&73.751&14.706&13.890&14.326\\
 	\end{tabular}
 \end{table}
 \begin{table}[H]
@@ -242,8 +261,8 @@ W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz wspó�
 	\begin{tabular}{l|l|l|l}
 		k& 3 & 7 & 9 \\
 		\hline
-		skuteczność [\%]   &42.105&39.4&31.5\\
-		czas wykonania [s] &0.001&0.002&0.002\\
+		skuteczność [\%]   &47368&39473&36842\\
+		czas wykonania [s] &0.001&0.002&0.001\\
 	\end{tabular}
 \end{table}
 
@@ -254,12 +273,12 @@ W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz wspó�
 	\begin{tabular}{l|l|l}
 		Metryka/Miara podobieństwa& skuteczność [\%] & czas wykonania [s]\\
 		\hline
-		Metryka euklidesowa&76.502&28.252\\
-		Metryka taksówkarska&76.431&27.345\\
-		Metryka Czebyszewa&76.648&14.371\\
-		Średnia arytmetyczna-minimum&76.375&46.422\\
-		Minimum-maximum&76.375&48.706\\
-		Własna miara podobieńśtwa&76.375&49.655\\
+		Metryka euklidesowa&76.357&81.822\\
+		Metryka taksówkarska&76.193&57.626\\
+		Metryka Czebyszewa&76.302&25.019\\
+		Średnia arytmetyczna-minimum&76.357&110.153\\
+		Minimum-maximum&76.357&141.884\\
+		Własna miara podobieńśtwa&76.357&148.490\\
 	\end{tabular}
 \end{table}
 
@@ -269,8 +288,8 @@ W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz wspó�
 	\begin{tabular}{l|l|l|l}
 		Ekstraktor& Reuters - places & Reuters - topics & Własny zbiór danych\\
 		\hline
-		skuteczność [\%]   &77.701&70.727&47.368\\
-		czas wykonania [s] &31.121&5.794&0.003\\
+		skuteczność [\%]   &78.209&79.985&47.368\\
+		czas wykonania [s] &31.121&5.794&0.002\\
 	\end{tabular}
 \end{table}
 
@@ -279,11 +298,49 @@ W tym eksperymencie użyto 3 słów kluczowych, metryki euklidesowej oraz wspó�
 	\begin{tabular}{l|l|l|l}
 		Ekstraktor& Reuters - places & Reuters - topics & Własny zbiór danych\\
 		\hline
-		skuteczność [\%]   &77.901&73.125&39.473\\
+		skuteczność [\%]   &77.882&72.938&39.473\\
 		czas wykonania [s] &17.353&2.851&0.001\\
 	\end{tabular}
 \end{table}
 
+\subsection{Eksperyment 5. Wpływ proporcji danych testowych i treningowych na klasyfikację}
+\begin{table}[H]
+	\centering
+	\caption{Wpływ proporcji danych testowych i treningowych na klasyfikację dla zbioru danych Reuters - kategoria topics}
+	\begin{tabular}{l|l|l}
+		Stosunek* & skuteczność [\%] & czas wykonania [s]\\
+		\hline
+		0.3&77.056&12.778\\
+		0.5&71.175&17.088\\
+		0.7&78.360&15.618\\
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Wpływ proporcji danych testowych i treningowych na klasyfikację dla zbioru danych Reuters - kategoria places}
+	\begin{tabular}{l|l|l}
+		Stosunek*& skuteczność [\%] & czas wykonania [s]\\
+		\hline
+		0.3&77.140&55.690\\
+		0.5&77.626&81.213\\
+		0.7&79.322&67.423\\
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Wpływ proporcji danych testowych i treningowych na klasyfikację dla własnego zbioru danych}
+	\begin{tabular}{l|l|l}
+		Stosunek*& skuteczność [\%] & czas wykonania [s]\\
+		\hline
+		0.3&45.454&0.004\\
+		0.5&38.297&0.002\\
+		0.7&44.827&0.002\\
+	\end{tabular}
+\end{table}
+
+* Stosunek liczby danych treningowych do liczby wszystkich danych.
 \newpage
 \section{Dyskusja}
 \subsection{Eksperyment 1. Wpływ wyboru ekstraktora cech na klasyfikację}
@@ -293,7 +350,9 @@ W tabeli 2. możemy zauważyć, że wraz ze wzrostem parametru k, skuteczność 
 \subsection{Eksperyment 3. Wpływ wyboru metryki/miary podobieńśtwa na efektywność klasyfikacji}
 Wśród sposobów na określanie bliskości pomiędzy wektorami możemy wyznaczyć dwie główne grupy - metryki oraz miary podobieństwa. Te pierwsze przyczyniły się do większej skuteczności klasyfikacji. Osiągnęły one także swój cel w krótszym czasie. Różnice pomiędzy skutecznością przedstawicieli tych samych grup jest niewielka. Wynikać to może z faktu, że przez sposób, w jaki zaimplementowane zostały miary podobieństwa, wymagają one dodatkowej operacji przeskalowania ich wartości na zbiór typowy dla metryk. Szczególnie efektywna okazała się metryka Czebyszewa, która osiągnęła największą skuteczność i najkrótszy czas wykonania dla parametrów opisanych w eksperymencie 3. 
 \subsection{Eksperyment 4. Wpływ normalizacji na klasyfikację}
-Zgodnie z oczekiwaniami, dla wszystkich zbiorów danych, normalizacja wydłużyła czas wykonania. Zmiana w skuteczności klasyfikacji była zdecydowanie największa dla własnego zbioru danych. W tym przypadku, normalizacja danych, znacząco zwiększyła efektywność klasyfikacji. Podobnego zjawiska nie zaobserwowano dla zbioru danych artykułów agencji Reuters. Wynikać to może z faktu, że wartości poszczególnych cech w wektorze były bardziej zróżnicowane w przypadku własnego zbioru danych.
+Zgodnie z oczekiwaniami, dla wszystkich zbiorów danych, normalizacja wydłużyła czas wykonania. We wszystkich przypadkach, normalizacja danych, zwiększyła efektywność klasyfikacji. Szczególny poprawę zaobserwowano dla własnego zbioru danych oraz dla artykułów agencji Reuters w kategorii topics. Wynikać to może z faktu, że wartości poszczególnych cech w wektorze mogą być bardziej lub mniej zróżnicowane w zależności od zbioru danych.
+\subsection{Eksperyment 5. Wpływ proporcji danych testowych i treningowych na klasyfikację}
+Zgodnie z oczekiwaniami, dla wszystkich zbiorów danych, normalizacja wydłużyła czas wykonania. We wszystkich przypadkach, normalizacja danych, zwiększyła efektywność klasyfikacji. Szczególny poprawę zaobserwowano dla własnego zbioru danych oraz dla artykułów agencji Reuters w kategorii topics. Wynikać to może z faktu, że wartości poszczególnych cech w wektorze mogą być bardziej lub mniej zróżnicowane w zależności od zbioru danych.
 
 \newpage
 \section{Wnioski}
